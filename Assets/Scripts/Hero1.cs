@@ -9,6 +9,19 @@ public class Hero1 : MonoBehaviour
     public float attack = 5f;
     public float speed = 5f;
 
+    Vector2 movement = new Vector2();
+
+    Rigidbody2D rigidbody2D;
+
+    Animator animator;
+
+    string animator_state = "animate_state";
+
+    enum State
+    {
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Monster")
@@ -27,28 +40,23 @@ public class Hero1 : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.localScale = new Vector3(-10, 10, 10);
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.localScale = new Vector3(10, 10, 10);
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-        }
+        
+    }
+
+    private void FixedUpdate()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        movement.Normalize();
+
+        rigidbody2D.velocity = movement * speed;
     }
 }
