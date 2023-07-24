@@ -11,7 +11,7 @@ public class Hero1 : MonoBehaviour
 
     Vector2 movement = new Vector2();
 
-    Rigidbody2D rigidbody2D;
+    Rigidbody2D rigid;
 
     Animator animator;
 
@@ -40,7 +40,7 @@ public class Hero1 : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigid= GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
@@ -57,6 +57,6 @@ public class Hero1 : MonoBehaviour
 
         movement.Normalize();
 
-        rigidbody2D.velocity = movement * speed;
+        rigid.velocity = movement * speed;
     }
 }
