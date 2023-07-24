@@ -7,7 +7,7 @@ public class Hero1 : MonoBehaviour
     public float attack = 5f;
     public float speed = 5f;
 
-    float manaPoint = HealthySystem.Instance.manaPoint;
+    /*float manaPoint = HealthySystem.Instance.manaPoint;
     float maxManaPoint = HealthySystem.Instance.maxManaPoint;
 
     float hitPoint = HealthySystem.Instance.hitPoint;
@@ -24,7 +24,7 @@ public class Hero1 : MonoBehaviour
         {
             Destroy(this);
         }
-    }
+    }*/
     // Start is called before the first frame update
     void Start()
     {
@@ -36,19 +36,21 @@ public class Hero1 : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            transform.position += Vector3.up * speed * Time.deltaTime;
+            transform.Translate(Vector3.up * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            transform.position += Vector3.down * speed * Time.deltaTime;
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.localScale = new Vector3(-1, 1, 1);
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.localScale = new Vector3(1, 1, 1);
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
     }
 }
