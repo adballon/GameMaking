@@ -23,8 +23,8 @@ public class Hero1 : MonoBehaviour
     {
         back = 1,
         front = 2,
-        right = 3,
-        left = 4
+        left = 3,
+        right = 4
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,6 +47,9 @@ public class Hero1 : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         rigid= GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        animator.SetInteger(animator_state, (int)States.front);
+        animator.SetBool(isMove, false);
     }
 
     // Update is called once per frame
