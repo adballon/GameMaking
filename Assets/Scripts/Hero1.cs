@@ -17,14 +17,14 @@ public class Hero1 : MonoBehaviour
     Animator animator;
 
     string animator_state = "AnimationState";
+    string isMove = "isMove";
 
     enum States
     {
         back = 1,
         front = 2,
         right = 3,
-        left = 4,
-        idle = 5
+        left = 4
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -75,22 +75,26 @@ public class Hero1 : MonoBehaviour
         if(movement.x < 0)
         {
             animator.SetInteger(animator_state, (int)States.left);
+            animator.SetBool(isMove, true);
         }
         else if(movement.x > 0)
         {
             animator.SetInteger(animator_state, (int)States.right);
+            animator.SetBool(isMove, true);
         }
         else if (movement.y < 0)
         {
             animator.SetInteger(animator_state, (int)States.front);
+            animator.SetBool(isMove, true);
         }
         else if (movement.y > 0)
         {
             animator.SetInteger(animator_state, (int)States.back);
+            animator.SetBool(isMove, true);
         }
         else
         {
-            animator.SetInteger(animator_state, (int)States.idle);
+            animator.SetBool(isMove, false);
         }
     }
 }
