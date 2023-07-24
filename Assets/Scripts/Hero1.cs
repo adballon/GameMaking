@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.VersionControl.Asset;
 
 public class Hero1 : MonoBehaviour
 {
@@ -15,11 +16,15 @@ public class Hero1 : MonoBehaviour
 
     Animator animator;
 
-    string animator_state = "animate_state";
+    string animator_state = "AnimationState";
 
-    enum State
+    enum States
     {
-
+        back = 1,
+        front = 2,
+        right = 3,
+        left = 4,
+        idle = 5
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,10 +52,15 @@ public class Hero1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateState();
     }
 
     private void FixedUpdate()
+    {
+        MoveCharacter();
+    }
+
+    private void MoveCharacter()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -58,5 +68,29 @@ public class Hero1 : MonoBehaviour
         movement.Normalize();
 
         rigid.velocity = movement * speed;
+    }
+
+    private void UpdateState()
+    {
+        if(movement.x < 0)
+        {
+            animator.SetInteger(animator_state, (int)States.left);
+        }
+        else if(movement.x > 0)
+        {
+            animator.SetInteger(animator_state, (int)States.right);
+        }
+        else if (movement.y < 0)
+        {
+            animator.SetInteger(animator_state, (int)States.front);
+        }
+        else if (movement.y > 0)
+        {
+            animator.SetInteger(animator_state, (int)States.back);
+        }
+        else
+        {
+            animator.SetInteger(animator_state, (int)States.idle);
+        }
     }
 }
