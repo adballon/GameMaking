@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class Hero1 : MonoBehaviour
 {
+    public GameObject hero;
+
     public float attack = 5f;
     public float speed = 5f;
-
-    /*float manaPoint = HealthySystem.Instance.manaPoint;
-    float maxManaPoint = HealthySystem.Instance.maxManaPoint;
-
-    float hitPoint = HealthySystem.Instance.hitPoint;
-    float maxHitPoint = HealthySystem.Instance.maxHitPoint;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Monster")
         {
             HealthySystem.Instance.TakeDamage(5);
+            Debug.Log(HealthySystem.Instance.hitPoint);
         }
 
-        if(hitPoint == 0)
+        if(HealthySystem.Instance.hitPoint == 0)
         {
-            Destroy(this);
+            Destroy(hero);
         }
-    }*/
+    }
+
     // Start is called before the first frame update
     void Start()
     {

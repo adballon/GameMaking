@@ -134,8 +134,6 @@ public class HealthySystem : MonoBehaviour
 			hitPoint = 0;
 
 		UpdateGraphics();
-
-		StartCoroutine(PlayerHurts());
 	}
 
 	public void HealDamage(float Heal) //처력 회복
@@ -195,34 +193,5 @@ public class HealthySystem : MonoBehaviour
 	{
 		UpdateHealthGlobe();
 		UpdateManaGlobe();
-	}
-
-	//==============================================================
-	// Coroutine Player Hurts
-	//==============================================================
-	IEnumerator PlayerHurts()
-	{
-		// Player gets hurt. Do stuff.. play anim, sound..
-
-		PopupText.Instance.Popup("Ouch!", 1f, 1f); // Demo stuff!
-
-		if (hitPoint < 1) // Health is Zero!!
-		{
-			yield return StartCoroutine(PlayerDied()); // Hero is Dead
-		}
-
-		else
-			yield return null;
-	}
-
-	//==============================================================
-	// Hero is dead
-	//==============================================================
-	IEnumerator PlayerDied()
-	{
-		// Player is dead. Do stuff.. play anim, sound..
-		PopupText.Instance.Popup("You have died!", 1f, 1f); // Demo stuff!
-
-		yield return null;
 	}
 }
