@@ -34,6 +34,21 @@ public class Hero1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.position += Vector3.up * speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.position += Vector3.down * speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 }
