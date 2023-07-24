@@ -44,12 +44,12 @@ public class Hero1 : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-10, 10, 10);
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(10, 10, 10);
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
     }
