@@ -17,7 +17,7 @@ public class Hero1 : MonoBehaviour
     Animator animator;
 
     string animator_state = "AnimationState";
-    string isMove = "isMove";
+    //string isMove = "isMove";
 
     enum States
     {
@@ -49,7 +49,7 @@ public class Hero1 : MonoBehaviour
         animator = GetComponent<Animator>();
 
         animator.SetInteger(animator_state, (int)States.front);
-        animator.SetBool(isMove, false);
+        animator.SetBool("isMove", false);
     }
 
     // Update is called once per frame
@@ -78,26 +78,27 @@ public class Hero1 : MonoBehaviour
         if(movement.x < 0)
         {
             animator.SetInteger(animator_state, (int)States.left);
-            animator.SetBool(isMove, true);
+            animator.SetBool("isMove", true);
         }
         else if(movement.x > 0)
         {
             animator.SetInteger(animator_state, (int)States.right);
-            animator.SetBool(isMove, true);
+            animator.SetBool("isMove", true);
         }
         else if (movement.y < 0)
         {
             animator.SetInteger(animator_state, (int)States.front);
-            animator.SetBool(isMove, true);
+            animator.SetBool("isMove", true);
+
         }
         else if (movement.y > 0)
         {
             animator.SetInteger(animator_state, (int)States.back);
-            animator.SetBool(isMove, true);
+            animator.SetBool("isMove", true);
         }
         else
         {
-            animator.SetBool(isMove, false);
+            animator.SetBool("isMove", false);
         }
     }
 }
