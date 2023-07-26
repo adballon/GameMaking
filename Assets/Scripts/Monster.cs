@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
     public int atkdmg;
     public int atkspeed;
     public int atkrange;
-    public int speed = 5;
+    public int speed = 1;
     public float fieldOfVision;
 
     private void SetEnemyStatus(string t_enemyname, int t_maxhp, int t_atkdmg, int t_atkspeed, int t_atkrange, float t_fieldOfVision)
