@@ -27,6 +27,14 @@ public class Hero1 : MonoBehaviour
         right = 4
     }
 
+    enum Attack
+    {
+        back = 5,
+        front = 6,
+        left = 7,
+        right = 8
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Monster")
@@ -99,6 +107,30 @@ public class Hero1 : MonoBehaviour
         else
         {
             animator.SetBool("isMove", false);
+        }
+
+        if(Input.GetKey(KeyCode.L))
+        {
+            if (movement.x < 0)
+            {
+                animator.SetInteger(animator_state, (int)Attack.left);
+            }
+            else if (movement.x > 0)
+            {
+                animator.SetInteger(animator_state, (int)Attack.right);
+            }
+            else if (movement.y < 0)
+            {
+                animator.SetInteger(animator_state, (int)Attack.front);
+
+            }
+            else if (movement.y > 0)
+            {
+                animator.SetInteger(animator_state, (int)Attack.back);
+            }
+        }
+        else
+        {
         }
     }
 }
