@@ -54,7 +54,7 @@ public class HealthySystem : MonoBehaviour
   	void Start()
 	{
         UpdateGraphics();
-		timeleft = regenUpdateInterval; 
+		timeleft = regenUpdateInterval;
 	}
 
 	//==============================================================

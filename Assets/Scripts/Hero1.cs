@@ -18,6 +18,7 @@ public class Hero1 : MonoBehaviour
 
     string animator_state = "AnimationState";
     //string isMove = "isMove";
+    int lastinput = 0;
 
     enum States
     {
@@ -40,7 +41,7 @@ public class Hero1 : MonoBehaviour
         if(collision.gameObject.tag == "Monster")
         {
             HealthySystem.Instance.TakeDamage(5);
-            Debug.Log(HealthySystem.Instance.hitPoint);
+            //Debug.Log(HealthySystem.Instance.hitPoint);
         }
 
         if(HealthySystem.Instance.hitPoint == 0)
@@ -58,6 +59,8 @@ public class Hero1 : MonoBehaviour
 
         animator.SetInteger(animator_state, (int)States.front);
         animator.SetBool("isMove", false);
+
+       
     }
 
     // Update is called once per frame
@@ -87,50 +90,54 @@ public class Hero1 : MonoBehaviour
         {
             animator.SetInteger(animator_state, (int)States.left);
             animator.SetBool("isMove", true);
+            lastinput = (int)States.left;
         }
         else if(movement.x > 0)
         {
             animator.SetInteger(animator_state, (int)States.right);
             animator.SetBool("isMove", true);
+            lastinput = (int)States.right;
         }
         else if (movement.y < 0)
         {
             animator.SetInteger(animator_state, (int)States.front);
             animator.SetBool("isMove", true);
+            lastinput = (int)States.front;
 
         }
         else if (movement.y > 0)
         {
             animator.SetInteger(animator_state, (int)States.back);
             animator.SetBool("isMove", true);
+            lastinput = (int)States.back;
         }
         else
         {
             animator.SetBool("isMove", false);
+            //lastinput = 0;
         }
 
-        if(Input.GetKey(KeyCode.L))
+        if(Input.GetKeyDown(KeyCode.L))
         {
-            if (movement.x < 0)
+            animator.SetTrigger("Attacktrigger");
+            
+            if (lastinput == (int)States.left)
             {
                 animator.SetInteger(animator_state, (int)Attack.left);
             }
-            else if (movement.x > 0)
+            else if (lastinput == (int)States.right)
             {
                 animator.SetInteger(animator_state, (int)Attack.right);
             }
-            else if (movement.y < 0)
+            else if (lastinput == (int)States.front)
             {
                 animator.SetInteger(animator_state, (int)Attack.front);
 
             }
-            else if (movement.y > 0)
+            else if (lastinput == (int)States.back)
             {
                 animator.SetInteger(animator_state, (int)Attack.back);
             }
-        }
-        else
-        {
         }
     }
 }
