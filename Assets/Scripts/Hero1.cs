@@ -9,6 +9,12 @@ public class Hero1 : MonoBehaviour
 
     public float attack = 5f;
     public float speed = 5f;
+    public float hitPoint = 50f;
+    public float maxhitPoint = 100f;
+    public float manaPoint = 50f;
+    public float maxManaPoint = 100f;
+    public float healPoint = 0.1f;
+    public float regemana = 0.1f;
 
     Vector2 movement = new Vector2();
 
