@@ -1,13 +1,4 @@
-﻿//==============================================================
-// HealthSystem
-// HealthSystem.Instance.TakeDamage (float Damage);
-// HealthSystem.Instance.HealDamage (float Heal);
-// HealthSystem.Instance.UseMana (float Mana);
-// HealthSystem.Instance.RestoreMana (float Mana);
-// Attach to the Hero.
-//==============================================================
-
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,17 +7,19 @@ public class HealthySystem : MonoBehaviour
 {
 	public static HealthySystem Instance;
 
+	GameObject Hero;
+	
     //체력 관련 변수
     public Image currentHealthGlobe;
 	public Text healthText;
-	public float hitPoint = 50f; //현재 체력 포인트
-	public float maxHitPoint = 100f; //최대 체력 포인트
+	public float hitPoint;//현재 체력 포인트
+	public float maxHitPoint; //최대 체력 포인트
 
 	//마나 관련 변수
 	public Image currentManaGlobe;
 	public Text manaText;
-    public float manaPoint = 50f; //현재 마나 포인트
-    public float maxManaPoint = 100f; //최대 마나포인트
+	public float manaPoint; //현재 마나 포인트
+	public float maxManaPoint; //최대 마나포인트
 
     //리젠 관련 변수
     public bool heal_Regenerate = true;
@@ -46,7 +39,7 @@ public class HealthySystem : MonoBehaviour
 	void Awake()
 	{
 		Instance = this;
-	}
+    }
 	
 	//==============================================================
 	// Start
@@ -55,14 +48,22 @@ public class HealthySystem : MonoBehaviour
 	{
         UpdateGraphics();
 		timeleft = regenUpdateInterval;
-	}
+
+        Hero = GameObject.Find("hero");
+		hitPoint = Hero.GetComponent<Hero1>().hitPoint;
+		maxHitPoint = Hero.GetComponent<Hero1>().maxhitPoint;
+        manaPoint = Hero.GetComponent<Hero1>().manaPoint;
+        maxManaPoint = Hero.GetComponent<Hero1>().maxManaPoint;
+    }
 
 	//==============================================================
 	// Update
 	//==============================================================
 	void Update ()
 	{
-		if (heal_Regenerate) //체력 리젠이 true
+		heal_regen = Hero.GetComponent<Hero1>().healPoint;
+        mana_regen = Hero.GetComponent<Hero1>().regemana;
+        if (heal_Regenerate) //체력 리젠이 true
 			heal_Regen(); //리젠 하기
 
 		if (mana_Regenerate) //마나 리젠이 true
