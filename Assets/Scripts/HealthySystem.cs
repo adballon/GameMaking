@@ -50,10 +50,6 @@ public class HealthySystem : MonoBehaviour
 		timeleft = regenUpdateInterval;
 
         Hero = GameObject.Find("hero");
-		hitPoint = Hero.GetComponent<Hero1>().hitPoint;
-		maxHitPoint = Hero.GetComponent<Hero1>().maxhitPoint;
-        manaPoint = Hero.GetComponent<Hero1>().manaPoint;
-        maxManaPoint = Hero.GetComponent<Hero1>().maxManaPoint;
     }
 
 	//==============================================================
@@ -63,6 +59,12 @@ public class HealthySystem : MonoBehaviour
 	{
 		heal_regen = Hero.GetComponent<Hero1>().healPoint;
         mana_regen = Hero.GetComponent<Hero1>().regemana;
+
+        hitPoint = Hero.GetComponent<Hero1>().hitPoint;
+        maxHitPoint = Hero.GetComponent<Hero1>().maxhitPoint;
+        manaPoint = Hero.GetComponent<Hero1>().manaPoint;
+        maxManaPoint = Hero.GetComponent<Hero1>().maxManaPoint;
+
         if (heal_Regenerate) //체력 리젠이 true
 			heal_Regen(); //리젠 하기
 

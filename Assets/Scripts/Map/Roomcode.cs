@@ -25,11 +25,20 @@ public class Roomcode : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(gameObject.name + " " + roomdoors.Length);
-        RoomCenter = this.gameObject.transform.position;
-        maxRoomHeigth = RoomCenter.y + RoomHeigth;
+        /*for(int i=0;i<4;i++)
+        {
+            roomdoors[i].Setactive(false);
+        }*/
+
+        //Debug.Log(gameObject.name + " " + roomdoors.Length);
+        RoomCenter = transform.position;
+        RoomWidth = roomdoors[3].transform.position.x;
+        RoomHeigth = roomdoors[0].transform.position.y;
+        
         maxRoomwidth = RoomCenter.x + RoomWidth;
-        minRoomheight = RoomCenter.y - RoomHeigth;
+        maxRoomHeigth = RoomCenter.y + RoomHeigth;
+
         minRoomwidth = RoomCenter.x - RoomWidth;
+        minRoomheight = RoomCenter.y - RoomHeigth;
     }
 }
