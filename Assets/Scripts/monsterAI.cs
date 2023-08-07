@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class MonsterAI : MonoBehaviour
 {
-    public Transform target;
-    Monster enemy;
+    public Transform target; //플레이어는 target
+    Monster enemy; //몬스터 정보는 enemy
     Vector3 dir;
     bool meet = false;
 
@@ -71,7 +71,7 @@ public class MonsterAI : MonoBehaviour
     }
     void Start()
     {
-        enemy = GetComponent<Monster>();
+        enemy = GetComponent<Monster>(); //Monster에 대한 정보를 enemy에
     }
 
     void Update()
