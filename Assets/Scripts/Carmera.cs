@@ -16,6 +16,5 @@ public class Carmera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.position = Hero.GetComponent<Hero1>().transform.position;
     }
 }

@@ -22,6 +22,8 @@ public class Hero1 : MonoBehaviour
 
     Animator animator;
 
+    public bool MoveRoom = false; //문에 닿아서 다음 방으로 가는가
+
     string animator_state = "AnimationState";
     //string isMove = "isMove";
     int lastinput = 0;
@@ -42,17 +44,30 @@ public class Hero1 : MonoBehaviour
         right = 8
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage(float Damage) //데미지 입는 함수
+    {
+        hitPoint -= Damage;
+        if (hitPoint < 1)
+            hitPoint = 0;
+    }
+
+        private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Monster")
         {
-            HealthySystem.Instance.TakeDamage(5);
+            TakeDamage(5);
             //Debug.Log(HealthySystem.Instance.hitPoint);
         }
 
         if(HealthySystem.Instance.hitPoint == 0)
         {
             Destroy(hero);
+        }
+
+        if(collision.gameObject.tag == "Door")
+        {
+            MoveRoom = true;
+            TakeDamage(5);
         }
     }
 
@@ -120,7 +135,6 @@ public class Hero1 : MonoBehaviour
         else
         {
             animator.SetBool("isMove", false);
-            //lastinput = 0;
         }
 
         if(Input.GetKeyDown(KeyCode.L))
