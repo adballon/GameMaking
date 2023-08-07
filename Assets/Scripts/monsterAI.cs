@@ -18,8 +18,8 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            meet = true;
             curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
+            meet = true;
         }
     }
     void OnCollisionExit2D(Collision2D collision)
@@ -54,13 +54,11 @@ public class MonsterAI : MonoBehaviour
     }
     void knockback()
     {
-
         getVec_dir();
         Vector3 back_dir;
         back_dir.x = -dir.x;
         back_dir.y = -dir.y;
         back_dir.z = -dir.z;
-        //transform.Translate(back_dir.normalized * 100f * Time.deltaTime);
 
         curbackspeed -= Time.deltaTime * knockbackpower;
         transform.Translate(back_dir * curbackspeed * Time.deltaTime);
