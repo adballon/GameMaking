@@ -63,7 +63,7 @@ public class RandomMapManager : MonoBehaviour
             return;
         }
 
-        for (; ; ) //무한루프
+        for (;;) //무한루프
         {
             if (cnt == 10) //모든 방에 다 방문했다
             {
