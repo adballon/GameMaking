@@ -7,6 +7,8 @@ public class Hero1 : MonoBehaviour
 {
     public GameObject hero;
 
+    public static Hero1 Instance;
+
     public float attack = 5f;
     public float speed = 5f;
     public float hitPoint = 50f;
@@ -27,6 +29,11 @@ public class Hero1 : MonoBehaviour
     string animator_state = "AnimationState";
     //string isMove = "isMove";
     int lastinput = 0;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     enum States
     {
@@ -74,14 +81,13 @@ public class Hero1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
+        //transform.position = new Vector3(0, 0, 0);
         rigid= GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
         animator.SetInteger(animator_state, (int)States.front);
         animator.SetBool("isMove", false);
-
-       
+        Debug.Log(HealthySystem.Instance.maxManaPoint);
     }
 
     // Update is called once per frame

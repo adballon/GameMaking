@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class HealthySystem : MonoBehaviour
 {
 	public static HealthySystem Instance;
-
-	GameObject Hero;
 	
     //체력 관련 변수
     public Image currentHealthGlobe;
@@ -48,8 +46,6 @@ public class HealthySystem : MonoBehaviour
 	{
         UpdateGraphics();
 		timeleft = regenUpdateInterval;
-
-        Hero = GameObject.Find("hero");
     }
 
 	//==============================================================
@@ -57,13 +53,13 @@ public class HealthySystem : MonoBehaviour
 	//==============================================================
 	void Update ()
 	{
-		heal_regen = Hero.GetComponent<Hero1>().healPoint;
-        mana_regen = Hero.GetComponent<Hero1>().regemana;
+		hitPoint = Hero1.Instance.hitPoint;
+		manaPoint = Hero1.Instance.manaPoint;
+		maxManaPoint = Hero1.Instance.maxManaPoint;
+		maxHitPoint = Hero1.Instance.maxhitPoint;
 
-        hitPoint = Hero.GetComponent<Hero1>().hitPoint;
-        maxHitPoint = Hero.GetComponent<Hero1>().maxhitPoint;
-        manaPoint = Hero.GetComponent<Hero1>().manaPoint;
-        maxManaPoint = Hero.GetComponent<Hero1>().maxManaPoint;
+		heal_regen = Hero1.Instance.healPoint;
+		mana_regen = Hero1.Instance.regemana;
 
         if (heal_Regenerate) //체력 리젠이 true
 			heal_Regen(); //리젠 하기
