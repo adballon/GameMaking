@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Doorcode : MonoBehaviour
 {
+    public static Doorcode Instance;
+
+
     GameObject hero;
     GameObject Room;
 
@@ -17,21 +21,29 @@ public class Doorcode : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            RandomMapManager.Instance.Hitdoor = this;
+            RandomMapManager.Instance.randomRoom();
 
-            collision.transform.position = connected.transform.position + (dir[direction] * 2f);
-            hero.GetComponent<Hero1>().MoveRoom = true;
-            Room.GetComponent<RandomMapManager>().NextRoom.isEnter = true; //이동한 방에 대해 방문 완료 표시
+            collision.transform.position = connected.transform.position + (dir[direction] * 2f); //다음 방으로 이동
+            RandomMapManager.Instance.CurrRoom = RandomMapManager.Instance.NextRoom;
+
+            if(RandomMapManager.Instance.visited.Count == 11)
+            {
+                RandomMapManager.Instance.init();
+            }
         }
     }
 
-    public void Setactive(bool active)
+    public void SetActive(bool active)
     {
         gameObject.SetActive(active);
     }
 
     void Start()
     {
-        hero = GameObject.Find("hero");
-        Room = GameObject.Find("Rooms");
+    }
+    void Awake()
+    {
+        Instance = this;
     }
 }

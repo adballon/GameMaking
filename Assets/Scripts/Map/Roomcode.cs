@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Roomcode : MonoBehaviour
 {
-    // 이 방에 한번이라도 들어갔는지
-    public bool isEnter = false;
+    public static Roomcode Instance; 
 
     public Vector3 RoomCenter;
     public float RoomWidth; //방의 가로 크기 / 2
@@ -40,5 +39,9 @@ public class Roomcode : MonoBehaviour
 
         minRoomwidth = RoomCenter.x - RoomWidth;
         minRoomheight = RoomCenter.y - RoomHeigth;
+    }
+    void Awake()
+    {
+        Instance = this;
     }
 }

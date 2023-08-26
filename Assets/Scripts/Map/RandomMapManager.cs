@@ -1,94 +1,105 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class RandomMapManager : MonoBehaviour
 {
+    public static RandomMapManager Instance;
+
     public Roomcode[] roomsamples;
+
+    public List<Roomcode> visited = new List<Roomcode>(); //방문 한 방 목록
 
     public Roomcode NextRoom; //이동 할 방
     public Roomcode CurrRoom; //현재 방
-    public GameObject Hero;
 
-    int ran;
-    int cnt = 0;
+    public Doorcode Hitdoor;
+
+    int ran()
+    {
+        return UnityEngine.Random.Range(1, roomsamples.Length - 1);
+    }
 
     //Start is called before the first frame update
     void Start()
     {
-        Hero = GameObject.Find("hero");
-
-        ran = Random.Range(1, roomsamples.Length - 1);
         CurrRoom = roomsamples[0];
-        NextRoom = roomsamples[ran];
-        CurrRoom.isEnter = true;
+        NextRoom = roomsamples[ran()];
 
-        CurrRoom.roomdoors[0].connected = NextRoom.roomdoors[(CurrRoom.roomdoors[0].direction + 2) % 4];
-        CurrRoom.roomdoors[1].connected = NextRoom.roomdoors[(CurrRoom.roomdoors[1].direction + 2) % 4];
-        CurrRoom.roomdoors[2].connected = NextRoom.roomdoors[(CurrRoom.roomdoors[2].direction + 2) % 4];
-        CurrRoom.roomdoors[3].connected = NextRoom.roomdoors[(CurrRoom.roomdoors[3].direction + 2) % 4];
-
+        visited.Add(CurrRoom);
     }
 
     //Update is called once per frame
     void Update()
     {
-        if (Hero.GetComponent<Hero1>().MoveRoom == true)
-        {
-            Hero.GetComponent<Hero1>().MoveRoom = false;
-
-            CurrRoom = NextRoom;
-            CurrRoom.isEnter = true;
-
-            randomRoom();
-        }
     }
 
-    void randomRoom()
+    public void init() //연결된 모든 문 해제
     {
-        if (CurrRoom == roomsamples[11]) //현재 방이 마지막 방이다
+        for(int i=0; i<roomsamples.Length;i++)
+        {
+            for(int j=0;j<4;j++)
+            {
+                roomsamples[i].roomdoors[j].connected = null;
+            }
+        }
+
+        visited.Clear();
+    }
+
+    public void randomRoom() //방 이동 함수
+    {
+        if(CurrRoom == roomsamples[11]) //현재 방이 마지막 방이다
         {
             CurrRoom.roomdoors[0].connected = roomsamples[0].roomdoors[2]; //첫 번째 방 아래쪽과 연결
-            for (int i = 1; i < 4; i++)//위쪽 문을 제외한 문 못가게
+
+            NextRoom = roomsamples[0];
+            for(int i= 0; i<4;i++)
             {
-                CurrRoom.roomdoors[i].Setactive(false);
+                if (CurrRoom.roomdoors[i] == null)
+                {
+                    CurrRoom.roomdoors[i].SetActive(false);
+                }
             }
 
-            for (int i = 1; i < roomsamples.Length; i++) //나머지 방에 대해 방문 표시 삭제
-            {
-                roomsamples[i].isEnter = false;
-            }
-            NextRoom = roomsamples[0];
+            Hitdoor.connected = NextRoom.roomdoors[(Hitdoor.direction + 2) % 4]; //다음 방 연결
+            NextRoom.roomdoors[(Hitdoor.direction + 2) % 4].connected = Hitdoor; //이전 방 연결
+
+            visited.Add(roomsamples[11]);
 
             return;
         }
 
-        for (;;) //무한루프
+        if (Hitdoor.connected == null) //그 문이 연결되지 않은 문이다
         {
-            if (cnt == 10) //모든 방에 다 방문했다
+            for (;;) //무한루프
             {
-                break; //루프 탈출
+                if (visited.Count == 10) //모든 방에 다 방문했다
+                {
+                    NextRoom = roomsamples[11]; //마지막 방으로 이동
+
+                    break; //루프 탈출
+                }
+
+                NextRoom = roomsamples[ran()]; // index를 랜덤으로 뽑아서 다음 방으로 지정
+
+                if (visited.Contains(NextRoom) == false) //그 방에 방문하지 않았다
+                {
+                    visited.Add(NextRoom);
+                    break; //탈출
+                }
             }
 
-            ran = Random.Range(1, roomsamples.Length - 1); //index를 랜덤으로 뽑아서
-            NextRoom = roomsamples[ran]; //그 index에 해당하는 방이
+            Hitdoor.connected = NextRoom.roomdoors[(Hitdoor.direction + 2) % 4]; //다음 방 연결
+            NextRoom.roomdoors[(Hitdoor.direction + 2) % 4].connected = Hitdoor; //이전 방 연결
 
-            if (NextRoom.isEnter == false) //방문하지 않았다
-            {
-                cnt = 0;
-                break; //루프 탈출
-            }
-            cnt++; //방문 했다면 방문 cnt++
-        }
-
-        if (cnt == 10) //모든 방에 방문 했다
-        {
-            NextRoom = roomsamples[11];
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            CurrRoom.roomdoors[i].connected = NextRoom.roomdoors[(NextRoom.roomdoors[i].direction + 2) % 4]; //현재 방과 다음 방을 연결
         }
     }
+    void Awake()
+    {
+        Instance = this;
+    }
 }
+//prictyuve

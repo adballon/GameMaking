@@ -24,8 +24,6 @@ public class Hero1 : MonoBehaviour
 
     Animator animator;
 
-    public bool MoveRoom = false; //문에 닿아서 다음 방으로 가는가
-
     string animator_state = "AnimationState";
     //string isMove = "isMove";
     int lastinput = 0;
@@ -69,12 +67,6 @@ public class Hero1 : MonoBehaviour
         if(HealthySystem.Instance.hitPoint == 0)
         {
             Destroy(hero);
-        }
-
-        if(collision.gameObject.tag == "Door")
-        {
-            MoveRoom = true;
-            TakeDamage(5);
         }
     }
 
