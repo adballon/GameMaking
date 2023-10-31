@@ -11,7 +11,7 @@ public class Attack : MonoBehaviour
     {
         if(collision.gameObject.tag == "Monster")
         {
-            Monster.Instance.nowhp -= Hero1.Instance.attack;
+            //Monster.Instance.now_hp -= Hero1.Instance.attack;
         }
     }
     // Start is called before the first frame update

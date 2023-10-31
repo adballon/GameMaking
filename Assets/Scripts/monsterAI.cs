@@ -7,11 +7,10 @@ public class MonsterAI : MonoBehaviour
 {
     public Transform target; //플레이어는 target
     Monster enemy; //몬스터 정보는 enemy
-    Vector3 dir;
-     public bool meet = false;
+    private bool meet = false;
 
-    public float knockbackspeed;
-    public float knockbackpower;
+    private float knockbackspeed = 0.5f;
+    private float knockbackpower = 0.5f;
     float curbackspeed = 0;
 
     void OnCollisionEnter2D(Collision2D collision) //플레이어와 만났냐
@@ -22,25 +21,21 @@ public class MonsterAI : MonoBehaviour
             meet = true;
         }
     }
-    void OnCollisionExit2D(Collision2D collision)
+    Vector3 getVec_dir()
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            
-        }
-    }
-    void getVec_dir()
-    {
-        dir = target.transform.position - transform.position;
+        Vector3 re_dir = target.transform.position - transform.position;
+        return re_dir;
     }
     void MoveToTarget()
     {
         if (meet == false)
         {
-            getVec_dir(); //백터형태로 가져오고
-            transform.Translate(dir.normalized * enemy.speed * Time.deltaTime); //좌표이동
+            Vector3 move_dir = getVec_dir(); //백터형태로 가져오고
+            transform.Translate(move_dir.normalized * enemy.speed * Time.deltaTime); //좌표이동
+            //Debug.Log("move");
         }
     }
+
     void FaceTarget()
     {
         if (target.position.x - transform.position.x < 0) // 타겟이 왼쪽에 있을 때
@@ -54,11 +49,11 @@ public class MonsterAI : MonoBehaviour
     }
     void knockback()
     {
-        getVec_dir();
+        Vector3 kn_vec = getVec_dir();
         Vector3 back_dir;
-        back_dir.x = -dir.x;
-        back_dir.y = -dir.y;
-        back_dir.z = -dir.z;
+        back_dir.x = -kn_vec.x;
+        back_dir.y = -kn_vec.y;
+        back_dir.z = -kn_vec.z;
 
         curbackspeed -= Time.deltaTime * knockbackpower;
         transform.Translate(back_dir * curbackspeed * Time.deltaTime);
@@ -74,8 +69,8 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-        FaceTarget();
-        MoveToTarget();
+         FaceTarget();
+         MoveToTarget();
         if(meet)
             knockback();
     }
