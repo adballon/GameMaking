@@ -17,7 +17,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
+            curbackspeed = knockbackspeed + 0.7f;      // 넉백 속도 초기값 설정
             meet = true;
         }
     }
@@ -31,8 +31,8 @@ public class MonsterAI : MonoBehaviour
         if (meet == false)
         {
             Vector3 move_dir = getVec_dir(); //백터형태로 가져오고
-            transform.Translate(move_dir.normalized * enemy.speed * Time.deltaTime); //좌표이동
-            //Debug.Log("move");
+            transform.Translate(move_dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
+            Debug.Log(enemy.speed);
         }
     }
 

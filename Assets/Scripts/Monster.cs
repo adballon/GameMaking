@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     float now_hp;
     int atk_dmg = 5;
     int atk_range = 3;
-    public int speed = 3;
+    public int speed = 4;
     public float fieldOfVision = 30;
 
     private void Awake()
