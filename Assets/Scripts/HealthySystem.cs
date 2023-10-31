@@ -58,7 +58,7 @@ public class HealthySystem : MonoBehaviour
 		maxManaPoint = Hero1.Instance.maxManaPoint;
 		maxHitPoint = Hero1.Instance.maxhitPoint;
 
-		heal_regen = Hero1.Instance.healPoint;
+		heal_regen = Hero1.Instance.regenhit;
 		mana_regen = Hero1.Instance.regemana;
 
         if (heal_Regenerate) //체력 리젠이 true

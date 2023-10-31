@@ -29,13 +29,6 @@ public class MonsterMaking : MonoBehaviour
         }
         area.enabled = false;
         yield return new WaitForSeconds(delayTime);   //주기 : 20초
-
-        for (int i = 0; i < count; i++) //책 삭제
-            Destroy(bookList[i].gameObject);
-
-        bookList.Clear();           //bookList 비우기
-        area.enabled = true;
-        StartCoroutine("Spawn", 20);    //책 다시 스폰
     }
 
     //BoxCollider2D 내의 랜덤한 위치를 return

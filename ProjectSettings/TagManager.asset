@@ -8,6 +8,8 @@ TagManager:
   - ManaSprite
   - HealthSprite
   - Monster
+  - Item
+  - Portal
   layers:
   - Default
   - TransparentFX

@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.VersionControl.Asset;
+using UnityEngine.UIElements.Experimental;
 
 public class Hero1 : MonoBehaviour
 {
@@ -9,24 +10,32 @@ public class Hero1 : MonoBehaviour
 
     public static Hero1 Instance;
 
-    public float attack = 5f;
-    public float speed = 5f;
-    public float hitPoint = 50f;
-    public float maxhitPoint = 100f;
-    public float manaPoint = 50f;
-    public float maxManaPoint = 100f;
-    public float healPoint = 0.1f;
-    public float regemana = 0.1f;
+    public float attack = 5f; //공격력
+    public float attack_range = 0f;
+    public float speed = 5f;  //스피드
+    public float defend = 5f;  //방어력
+    public float luck = 5f;  //운
+    public float maxManaPoint = 100f;  //최대 마나
+    public float maxhitPoint = 100f;  //최대 체력
+    
+    
+    public float hitPoint = 50f;  //현재 체력   
+    public float manaPoint = 50f; //현재 마나
+    public float regenhit = 0.1f;  //체력 리젠
+    public float regemana = 0.1f;  //마나 리젠
 
+    public int lastinput = 1;
+    public float delayTime = 0.5f;
     Vector2 movement = new Vector2();
 
     Rigidbody2D rigid;
 
-    Animator animator;
+    public Animator animator;
 
-    string animator_state = "AnimationState";
-    //string isMove = "isMove";
-    int lastinput = 0;
+    public string animator_state = "AnimationState";
+    //string isAttack = "isAttack";
+    
+    
 
     void Awake()
     {
@@ -56,15 +65,21 @@ public class Hero1 : MonoBehaviour
             hitPoint = 0;
     }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Monster")
         {
             TakeDamage(5);
             //Debug.Log(HealthySystem.Instance.hitPoint);
         }
+        
+        if(collision.gameObject.tag == "Portal")
+        {
+            transform.position = new Vector3(0, 100, 0);
+            Destroy(collision.gameObject);
+        }
 
-        if(HealthySystem.Instance.hitPoint == 0)
+        if (HealthySystem.Instance.hitPoint == 0)
         {
             Destroy(hero);
         }
@@ -74,18 +89,39 @@ public class Hero1 : MonoBehaviour
     void Start()
     {
         //transform.position = new Vector3(0, 0, 0);
-        rigid= GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
         animator.SetInteger(animator_state, (int)States.front);
         animator.SetBool("isMove", false);
-        Debug.Log(HealthySystem.Instance.maxManaPoint);
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator ExecuteWithDelay(float delayTime)
     {
-        UpdateState();
+        // n초 동안 showAttackRange 함수 실행
+        Hero_Attack.Instance.showAttackRange();
+
+        // n초 동안 대기
+        yield return new WaitForSeconds(delayTime);
+
+        Hero_Attack.Instance.setActiveRange();
+        //코루틴 종료
+        StopCoroutine(ExecuteWithDelay(delayTime));
+    }
+
+// Update is called once per frame
+void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) //공격키를 눌렀다
+        {
+            animator.SetTrigger("Attack");
+            StartCoroutine(ExecuteWithDelay(delayTime));
+        }
+        else
+        {
+            ani_move();
+        }
+
     }
 
     private void FixedUpdate()
@@ -103,15 +139,15 @@ public class Hero1 : MonoBehaviour
         rigid.velocity = movement * speed;
     }
 
-    private void UpdateState()
+    private void ani_move()
     {
-        if(movement.x < 0)
+        if (movement.x < 0)
         {
             animator.SetInteger(animator_state, (int)States.left);
             animator.SetBool("isMove", true);
             lastinput = (int)States.left;
         }
-        else if(movement.x > 0)
+        else if (movement.x > 0)
         {
             animator.SetInteger(animator_state, (int)States.right);
             animator.SetBool("isMove", true);
@@ -133,29 +169,6 @@ public class Hero1 : MonoBehaviour
         else
         {
             animator.SetBool("isMove", false);
-        }
-
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            animator.SetTrigger("Attacktrigger");
-            
-            if (lastinput == (int)States.left)
-            {
-                animator.SetInteger(animator_state, (int)Attack.left);
-            }
-            else if (lastinput == (int)States.right)
-            {
-                animator.SetInteger(animator_state, (int)Attack.right);
-            }
-            else if (lastinput == (int)States.front)
-            {
-                animator.SetInteger(animator_state, (int)Attack.front);
-
-            }
-            else if (lastinput == (int)States.back)
-            {
-                animator.SetInteger(animator_state, (int)Attack.back);
-            }
         }
     }
 }
