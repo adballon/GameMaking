@@ -29,13 +29,7 @@ public class MonsterAI : MonoBehaviour
             meet = true;
         }
     }
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
 
-        }
-    }
     Vector3 getVec_dir()
     {
         dir = target.transform.position - transform.position;
@@ -51,10 +45,6 @@ public class MonsterAI : MonoBehaviour
             transform.Translate(move_dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
             //Debug.Log(enemy.speed);
         }
-        //else
-        //{
-        //    knockback();
-        //}
     }
     void waiting()
     {
@@ -109,13 +99,11 @@ public class MonsterAI : MonoBehaviour
         curbackspeed -= Time.deltaTime * knockbackpower;
         knockbackpower += 0.01f;
 
-        //Debug.Log(curbackspeed);
         if (curbackspeed <= 0)
         {
             knockbackpower = 0.5f;
             meet = false;
             return;
-            //Debug.Log(curbackspeed);
         }
         else
         {
@@ -125,10 +113,6 @@ public class MonsterAI : MonoBehaviour
     }
     bool in_sight()
     {
-        //Debug.Log("this" + vec);
-        //Debug.Log("target" + target.transform.position);
-        //Debug.Log("distance" + Vector2.Distance(transform.position, vec));
-        //Debug.Log("sight" + Monster.Instance.fieldOfVision);
         if (Vector2.Distance(transform.position, target.transform.position) < Monster.Instance.fieldOfVision)
         {
 
@@ -145,7 +129,7 @@ public class MonsterAI : MonoBehaviour
     }
     void Start()
     {
-        enemy = GetComponent<Monster>(); //Monster에 대한 정보를 enemy에
+        enemy = GetComponent<Monster>();
     }
 
     void Update()
@@ -165,4 +149,5 @@ public class MonsterAI : MonoBehaviour
             knockback();
         }
     }
+
 }
