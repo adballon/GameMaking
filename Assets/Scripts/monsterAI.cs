@@ -8,8 +8,9 @@ using UnityEngine.UIElements;
 
 public class MonsterAI : MonoBehaviour
 {
+    public static MonsterAI Instance;
     public GameObject target; //플레이어는 target
-    Monster enemy; //몬스터 정보는 enemy
+    Rigidbody2D rb;
     Vector3 dir;
     public bool meet = false;
 
@@ -17,55 +18,60 @@ public class MonsterAI : MonoBehaviour
     public float knockbackpower;
     float curbackspeed = 0;
     public float delay = 3.0f;
+    bool waiting_exe = false;
+    public float movement = 30f;
+    
+    public void knockBack_init()
+    {
+        curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
+        curbackspeed = 0;
+        knockbackpower = 0.5f;
+        curbackspeed = knockbackspeed + 3f;      // 넉백 속도 초기값 설정
+        meet = true;
+    }
 
     void OnCollisionEnter2D(Collision2D collision) //플레이어와 만났냐
     {
         if (collision.gameObject.tag == "Player" && knockbackpower <= 0.5f)
         {
-            curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
-            curbackspeed = 0;
-            knockbackpower = 0.5f;
-            curbackspeed = knockbackspeed + 3f;      // 넉백 속도 초기값 설정
-            meet = true;
+            knockBack_init();
         }
     }
 
     Vector3 getVec_dir()
     {
-        dir = target.transform.position - transform.position;
-        return dir;
+        return target.transform.position - transform.position;
     }
     void MoveToTarget()
     {
         if (meet == false)
         {
-            getVec_dir(); //백터형태로 가져오고
-            transform.Translate(dir.normalized * enemy.speed * Time.deltaTime); //좌표이동
-            Vector3 move_dir = getVec_dir(); //백터형태로 가져오고
-            transform.Translate(move_dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
-            //Debug.Log(enemy.speed);
+            dir = getVec_dir(); //백터형태로 가져오고
+            transform.Translate(dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
         }
     }
     void waiting()
     {
-        int i = UnityEngine.Random.Range(0, 3);
-        Debug.Log(i);
-        switch (i)
+        int j = UnityEngine.Random.Range(0, 3);
+        switch (j)
         {
             case 0:
-                transform.Translate(Vector3.down * Monster.Instance.speed * Time.deltaTime);
+                
+                rb.MovePosition(rb.position + Vector2.up * movement * Time.deltaTime);
                 break;
             case 1:
-                transform.Translate(Vector3.up * Monster.Instance.speed * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.down * movement * Time.deltaTime);
                 break;
             case 2:
-                transform.Translate(Vector3.left * Monster.Instance.speed * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.left * movement * Time.deltaTime);
                 break;
             case 3:
-                transform.Translate(Vector3.right * Monster.Instance.speed * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.right * movement * Time.deltaTime);
                 break;
+
         }
-    }
+    } //순간이동하네 시발
+
 
     private IEnumerator ExecuteWithDelay(float delayTime)
     {
@@ -73,6 +79,7 @@ public class MonsterAI : MonoBehaviour
         // n초 동안 대기
         waiting();
         yield return new WaitForSeconds(delayTime);
+        waiting_exe = false;
         //코루틴 종료
         StopCoroutine(ExecuteWithDelay(delayTime));
     }
@@ -89,7 +96,7 @@ public class MonsterAI : MonoBehaviour
     }
     void knockback()
     {
-        getVec_dir();
+        dir = getVec_dir();
         Vector3 back_dir;
         back_dir.x = -dir.x;
         back_dir.y = -dir.y;
@@ -107,13 +114,12 @@ public class MonsterAI : MonoBehaviour
         }
         else
         {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.MovePosition(transform.position + back_dir.normalized * curbackspeed * Time.deltaTime);
         }
     }
     bool in_sight()
     {
-        if (Vector2.Distance(transform.position, target.transform.position) < Monster.Instance.fieldOfVision)
+        if (Vector2.Distance(transform.position, target.transform.position) < Monster.Instance.vision)
         {
 
             return true;
@@ -123,28 +129,39 @@ public class MonsterAI : MonoBehaviour
             return false;
         }
     }
-    void invoke_wait()
+    void Start()
     {
 
     }
-    void Start()
+    private void Awake()
     {
-        enemy = GetComponent<Monster>();
+        rb = GetComponent<Rigidbody2D>();
+        Instance = this;
     }
 
     void Update()
     {
         FaceTarget();
-        MoveToTarget();
-        if (meet)
+        if (!meet)
+        {
             if (in_sight() == true)
             {
                 MoveToTarget();
             }
+            else
+            {
+                if (waiting_exe == false)
+                {
+                    waiting_exe = true;
+                    StartCoroutine(ExecuteWithDelay(delay));
+                }
+            }
+        }
     }
+
     private void FixedUpdate()
     {
-        if (meet)
+        if(meet)
         {
             knockback();
         }

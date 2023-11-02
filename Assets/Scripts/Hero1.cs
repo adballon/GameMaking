@@ -69,8 +69,7 @@ public class Hero1 : MonoBehaviour
     {
         if(collision.gameObject.tag == "Monster")
         {
-            TakeDamage(5);
-            //Debug.Log(HealthySystem.Instance.hitPoint);
+            TakeDamage(Monster.Instance.atk_dmg);
         }
         
         if(collision.gameObject.tag == "Portal")
