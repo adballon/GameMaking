@@ -10,6 +10,7 @@ TagManager:
   - Monster
   - Item
   - Portal
+  - Weapon
   layers:
   - Default
   - TransparentFX

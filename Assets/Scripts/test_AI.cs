@@ -10,7 +10,7 @@ public class test_AI : MonoBehaviour
     bool in_sight()
     {
         target = GetComponent<Transform>();
-        if (Vector2.Distance(transform.position, target.position) < Monster.Instance.fieldOfVision)
+        if (Vector2.Distance(transform.position, target.position) < Monster.Instance.vision)
         {
             return true;
         }

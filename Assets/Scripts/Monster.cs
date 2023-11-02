@@ -5,12 +5,13 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     public static Monster Instance;
+    public GameObject monster;
     float max_hp = 100;
-    float now_hp;
-    int atk_dmg = 5;
-    int atk_range = 3;
+    public float now_hp;
+    public float atk_dmg = 5;
+    //int atk_range = 3;
+    public int vision = 30;
     public int speed = 4;
-    public float fieldOfVision = 30;
 
     private void Awake()
     {
@@ -25,6 +26,10 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(now_hp <= 0)
+        {
+            Debug.Log("Killed");
+            Destroy(monster);
+        }
     }
 }

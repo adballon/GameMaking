@@ -16,6 +16,7 @@ public class MonsterMaking : MonoBehaviour
         StartCoroutine("Spawn", 20);
     }
 
+
     //게임 오브젝트를 복제하여 scene에 추가
     private IEnumerator Spawn(float delayTime)
     {
