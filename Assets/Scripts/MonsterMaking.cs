@@ -13,13 +13,6 @@ public class MonsterMaking : MonoBehaviour
     void Start()
     {
         area = GetComponent<BoxCollider2D>();
-        StartCoroutine("Spawn", 20);
-    }
-
-
-    //게임 오브젝트를 복제하여 scene에 추가
-    private IEnumerator Spawn(float delayTime)
-    {
         for (int i = 0; i < count; i++) //count만큼 책 생성
         {
             Vector3 spawnPos = GetRandomPosition(); //랜덤 위치 return
@@ -29,10 +22,8 @@ public class MonsterMaking : MonoBehaviour
             bookList.Add(instance); //오브젝트 관리를 위해 리스트에 add
         }
         area.enabled = false;
-        yield return new WaitForSeconds(delayTime);   //주기 : 20초
     }
-
-    //BoxCollider2D 내의 랜덤한 위치를 return
+    
     private Vector2 GetRandomPosition()
     {
         Vector2 basePosition = transform.position;  //오브젝트의 위치

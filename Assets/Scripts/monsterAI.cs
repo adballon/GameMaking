@@ -19,8 +19,13 @@ public class MonsterAI : MonoBehaviour
     float curbackspeed = 0;
     public float delay = 3.0f;
     bool waiting_exe = false;
-    public float movement = 30f;
-    
+    int j;
+
+    public int ran()
+    {
+        return UnityEngine.Random.Range(0, 4); //랜덤은 최소정수 ~ 최대정수 -1
+    }
+
     public void knockBack_init()
     {
         curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
@@ -52,21 +57,19 @@ public class MonsterAI : MonoBehaviour
     }
     void waiting()
     {
-        int j = UnityEngine.Random.Range(0, 3);
         switch (j)
         {
             case 0:
-                
-                rb.MovePosition(rb.position + Vector2.up * movement * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.up * Monster.Instance.speed * 2 * Time.deltaTime);
                 break;
             case 1:
-                rb.MovePosition(rb.position + Vector2.down * movement * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.down * Monster.Instance.speed * 2 * Time.deltaTime);
                 break;
             case 2:
-                rb.MovePosition(rb.position + Vector2.left * movement * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.left * Monster.Instance.speed * 2 * Time.deltaTime);
                 break;
             case 3:
-                rb.MovePosition(rb.position + Vector2.right * movement * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.right * Monster.Instance.speed * 2 * Time.deltaTime);
                 break;
 
         }
@@ -77,7 +80,7 @@ public class MonsterAI : MonoBehaviour
     {
         // n초 동안 showAttackRange 함수 실행
         // n초 동안 대기
-        waiting();
+        j = ran(); //랜덤 함수
         yield return new WaitForSeconds(delayTime);
         waiting_exe = false;
         //코루틴 종료
@@ -155,6 +158,7 @@ public class MonsterAI : MonoBehaviour
                     waiting_exe = true;
                     StartCoroutine(ExecuteWithDelay(delay));
                 }
+                waiting();
             }
         }
     }

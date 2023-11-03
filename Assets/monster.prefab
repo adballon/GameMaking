@@ -187,7 +187,7 @@ MonoBehaviour:
   knockbackspeed: 0
   knockbackpower: 0
   delay: 2
-  movement: 30
+  movement: 2
 --- !u!114 &6309264941647325235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,5 +203,5 @@ MonoBehaviour:
   monster: {fileID: 752496556949506917}
   now_hp: 0
   atk_dmg: 5
+  vision: 30
   speed: 2
-  fieldOfVision: 30
