@@ -12,9 +12,9 @@ public class Hero_Attack : MonoBehaviour
     Rigidbody2D rigid;
 
     public GameObject[] Range; //공격범위 배열
-    float init_range = 0.1f; //공격범위 초기값
-    public float saverange; //바뀐 공격범위 스탯 저장
-    bool chk = false; //공격범위가 바뀌었는가?
+    public Vector3[] init_position;
+    public Vector3[] position;
+    float init_range; //공격범위 초기값
     float range; //공격범위
     public int arrow;
 
@@ -26,13 +26,22 @@ public class Hero_Attack : MonoBehaviour
     void Start()
     {
         arrow = 1;
+        init_range = Hero1.Instance.attack_range * 0.1f;
+        position = new Vector3[4];
+        init_position = new Vector3[4];
         setActiveRange();
-        for(int i = 0; i < Range.Length; i++)
+
+        Range[0].transform.localScale = new Vector3(0.1f, 0.1f, 1);
+        Range[1].transform.localScale = new Vector3(0.1f, 0.1f, 1);
+        Range[2].transform.localScale = new Vector3(0.1f, 0.18f, 1);
+        Range[3].transform.localScale = new Vector3(0.1f, 0.18f, 1);
+
+        for (int i = 0; i < Range.Length; i++)
         {
-            Range[i].transform.localScale = new Vector3(init_range, init_range, 1);
+            position[i] = Range[i].transform.localPosition;
+            Debug.Log(position[i]);
         }
         range = init_range;
-        saverange = Hero1.Instance.attack_range;
     }
 
     public void setActiveRange()
@@ -43,35 +52,31 @@ public class Hero_Attack : MonoBehaviour
         }
     }
 
-    void checkRange()
+    bool checkRange()
     {
-        if(saverange != Hero1.Instance.attack_range)
+        if (range != Hero1.Instance.attack_range * 0.1f)
         {
-            chk = true;
-            saverange = Hero1.Instance.attack_range;
-            range = saverange + init_range;
+            range = Hero1.Instance.attack_range * 0.1f;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-
-
     void changeRange()
     {
-        checkRange();
-        Range[0].transform.localScale = new Vector3(init_range, range, 1); //위쪽
-        Range[1].transform.localScale = new Vector3(init_range, range, 1); //아래쪽
-        Range[2].transform.localScale = new Vector3(range, init_range, 1); //왼쪽
-        Range[3].transform.localScale = new Vector3(range, init_range, 1); //오른쪽
+        float change = range - init_range;
+        Range[0].transform.localScale = new Vector3(0.1f, range, 1);
+        Range[1].transform.localScale = new Vector3(0.1f, range, 1);
+        Range[2].transform.localScale = new Vector3(range, 0.18f, 1);
+        Range[3].transform.localScale = new Vector3(range, 0.18f, 1);
 
-        if(chk)
-        {
-            chk = false;
-            float positionvector = Hero1.Instance.attack_range/2;
-            Range[0].transform.localPosition = new Vector3(0, (positionvector + 0.12f), 0); //위쪽
-            Range[1].transform.localPosition = new Vector3(0, -(positionvector + 0.2f), 0); //아래쪽
-            Range[2].transform.localPosition = new Vector3(-(positionvector + 0.1f), -0.1f, 0); //왼쪽
-            Range[3].transform.localPosition = new Vector3((positionvector + 0.1f), -0.1f, 0); //오른쪽
-        }
+        Range[0].transform.localPosition = position[0] + new Vector3(0, change / 2, 0);
+        Range[1].transform.localPosition = position[1] + new Vector3(0, -change / 2, 0);
+        Range[2].transform.localPosition = position[2] + new Vector3(-change / 2, 0, 0);
+        Range[3].transform.localPosition = position[3] + new Vector3(change / 2, 0, 0);
     }
 
     public void showAttackRange()
@@ -82,7 +87,13 @@ public class Hero_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        changeRange();
+        if (checkRange() == true)
+        {
+            Debug.Log(true);
+            changeRange();
+        }
         arrow = Hero1.Instance.lastinput;
     }
 }
+
+//공격범위 수정 완료

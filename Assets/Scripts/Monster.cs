@@ -9,7 +9,6 @@ public class Monster : MonoBehaviour
     float max_hp = 100;
     public float now_hp;
     public float atk_dmg = 5;
-    //int atk_range = 3;
     public int vision = 30;
     public int speed = 4;
 
@@ -22,14 +21,34 @@ public class Monster : MonoBehaviour
     {
         now_hp = max_hp;
     }
-
     // Update is called once per frame
     void Update()
     {
-        if(now_hp <= 0)
+        if (now_hp <= 0)
         {
-            Debug.Log("Killed");
-            Destroy(monster);
+            if (return_random(Hero1.Instance.luck))
+            {
+                int item_idx = Random.Range(0, Item_placement.Instance.item.Length);
+
+                Instantiate(Item_placement.Instance.item[item_idx], transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+        }
+    }
+    bool return_random(float range)
+    {
+        float random = Random.Range(0, 1f - range);
+        float prob = Random.Range(0, 1f);
+
+        Debug.Log(random + " " + prob);
+
+        if (random <= prob && prob < random + range)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

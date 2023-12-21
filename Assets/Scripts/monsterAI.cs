@@ -12,6 +12,7 @@ public class MonsterAI : MonoBehaviour
     public GameObject target; //플레이어는 target
     Rigidbody2D rb;
     Vector3 dir;
+    Vector3 prepos;
     public bool meet = false;
 
     public float knockbackspeed;
@@ -19,13 +20,24 @@ public class MonsterAI : MonoBehaviour
     float curbackspeed = 0;
     public float delay = 3.0f;
     bool waiting_exe = false;
-    int j;
+    public int dire = 0;
 
-    public int ran()
+    //public Animator animator;
+    //public String WalkingState = "WalkState";
+    //public String isMove = "isMove";
+
+    //enum State
+    //{
+    //    front = 0,
+    //    back = 1,
+    //    left = 2,
+    //    right = 3
+    //}
+
+    public int random()
     {
-        return UnityEngine.Random.Range(0, 4); //랜덤은 최소정수 ~ 최대정수 -1
+        return UnityEngine.Random.Range(0, 4);
     }
-
     public void knockBack_init()
     {
         curbackspeed = knockbackspeed;      // 넉백 속도 초기값 설정
@@ -55,35 +67,37 @@ public class MonsterAI : MonoBehaviour
             transform.Translate(dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
         }
     }
-    void waiting()
+    void waiting(int j)
     {
         switch (j)
         {
             case 0:
-                rb.MovePosition(rb.position + Vector2.up * Monster.Instance.speed * 2 * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.up * Monster.Instance.speed * 3 * Time.deltaTime);
+                //animator.SetInteger(WalkingState, (int)State.back);
                 break;
             case 1:
-                rb.MovePosition(rb.position + Vector2.down * Monster.Instance.speed * 2 * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.down * Monster.Instance.speed * 3 * Time.deltaTime);
+                //animator.SetInteger(WalkingState, (int)State.front);
                 break;
             case 2:
-                rb.MovePosition(rb.position + Vector2.left * Monster.Instance.speed * 2 * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.left * Monster.Instance.speed * 3 * Time.deltaTime);
+                //animator.SetInteger(WalkingState, (int)State.left);
                 break;
             case 3:
-                rb.MovePosition(rb.position + Vector2.right * Monster.Instance.speed * 2 * Time.deltaTime);
+                rb.MovePosition(rb.position + Vector2.right * Monster.Instance.speed * 3 * Time.deltaTime);
+                //animator.SetInteger(WalkingState, (int)State.right);
                 break;
 
         }
-    } //순간이동하네 시발
+    } //순간이동 안한다 XD
 
 
     private IEnumerator ExecuteWithDelay(float delayTime)
     {
-        // n초 동안 showAttackRange 함수 실행
-        // n초 동안 대기
-        j = ran(); //랜덤 함수
+        dire = random();
         yield return new WaitForSeconds(delayTime);
         waiting_exe = false;
-        //코루틴 종료
+        //animator.SetBool(isMove, false);
         StopCoroutine(ExecuteWithDelay(delayTime));
     }
     void FaceTarget()
@@ -134,7 +148,9 @@ public class MonsterAI : MonoBehaviour
     }
     void Start()
     {
-
+        //animator.SetBool(isMove, false);
+        //animator.SetInteger(WalkingState, 0);
+        target = GameObject.FindWithTag("Player");
     }
     private void Awake()
     {
@@ -145,30 +161,37 @@ public class MonsterAI : MonoBehaviour
     void Update()
     {
         FaceTarget();
-        if (!meet)
+        if (!meet) //안 만났다
         {
-            if (in_sight() == true)
+            if (in_sight() == true) //시야 안에 있다?
             {
-                MoveToTarget();
+                MoveToTarget(); //그럼 글로 가
             }
-            else
+            else //시야 안에 없어
             {
-                if (waiting_exe == false)
+                if (waiting_exe == false) //지금 움직이고 있는 상태가 아니다?
                 {
-                    waiting_exe = true;
-                    StartCoroutine(ExecuteWithDelay(delay));
+                    waiting_exe = true; //움직일 수 있는 상태를 만들어 주고
+                    //animator.SetBool(isMove, true);
+                    StartCoroutine(ExecuteWithDelay(delay)); //3초 세
                 }
-                waiting();
+                else //움직일 수 있는 상태다
+                {
+                    waiting(dire); //움직여
+                }
             }
         }
     }
 
     private void FixedUpdate()
     {
-        if(meet)
+        if (meet)
         {
             knockback();
         }
     }
 
 }
+
+//게임 상태를 알려주는 스크립트 필요?
+//인터럽트(캐릭터가 죽었는지 살았는지)
