@@ -6,12 +6,12 @@ public class item : MonoBehaviour
 {
     public static item Instance;
 
-    public float attack_up = 0;
-    public float defense_up = 0;
-    public float speed_up = 0;
-    public float luck_up = 0;
-    public float hit_up = 0;
-    public float mana_up = 0;
+    public float attack_up = 0; //공격력 증가
+    public float defense_up = 0; //방어력 증가
+    public float speed_up = 0; //속도 증가
+    public float luck_up = 0; //운 증가
+    public float hit_up = 0; //체력 증가
+    public float mana_up = 0; //마나 증가
 
     void Awake()
     {
@@ -27,8 +27,8 @@ public class item : MonoBehaviour
             Hero1.Instance.attack += attack_up;
             Hero1.Instance.defend += defense_up;
             Hero1.Instance.speed += speed_up;
-            Hero1.Instance.maxhitPoint += hit_up;
-            Hero1.Instance.maxManaPoint += mana_up;
+            Hero1.Instance.hitPoint += hit_up;
+            Hero1.Instance.manaPoint += mana_up;
         }
     }
 

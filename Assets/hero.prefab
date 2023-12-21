@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7993551905300313663}
   - component: {fileID: 9190161859053469696}
   - component: {fileID: 7187517731352752786}
+  - component: {fileID: 2454367071217292657}
   m_Layer: 0
   m_Name: LeftAttackRange
   m_TagString: Weapon
@@ -144,6 +145,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa30e8ab03c83e47ab608f16b9876c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &2454367071217292657
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92896866253057673}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &3246497414808248101
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +184,7 @@ GameObject:
   - component: {fileID: 2566646023711605703}
   - component: {fileID: 1170962304201469336}
   - component: {fileID: 3713760584856112077}
+  - component: {fileID: 5972697666286877643}
   m_Layer: 0
   m_Name: UpAttackRange
   m_TagString: Weapon
@@ -288,6 +317,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa30e8ab03c83e47ab608f16b9876c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &5972697666286877643
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3246497414808248101}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &4297615357025294192
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +448,7 @@ GameObject:
   - component: {fileID: 7133284538924125555}
   - component: {fileID: 3541508486571132525}
   - component: {fileID: 5417062752507367961}
+  - component: {fileID: 5689481689167268464}
   m_Layer: 0
   m_Name: RightAttackRange
   m_TagString: Weapon
@@ -524,6 +581,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa30e8ab03c83e47ab608f16b9876c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &5689481689167268464
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5572010806236458455}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &7194534525582538006
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +896,7 @@ GameObject:
   - component: {fileID: 3904626000091276355}
   - component: {fileID: 1557109823400992507}
   - component: {fileID: 8859535642517217865}
+  - component: {fileID: 3684287024910778421}
   m_Layer: 0
   m_Name: DownAttackRange
   m_TagString: Weapon
@@ -944,3 +1029,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa30e8ab03c83e47ab608f16b9876c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &3684287024910778421
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8690650554553287622}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

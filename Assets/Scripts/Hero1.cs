@@ -18,7 +18,6 @@ public class Hero1 : MonoBehaviour
     public float maxManaPoint = 100f;  //최대 마나
     public float maxhitPoint = 100f;  //최대 체력
     
-    
     public float hitPoint = 50f;  //현재 체력   
     public float manaPoint = 50f; //현재 마나
     public float regenhit = 0.1f;  //체력 리젠
@@ -35,8 +34,6 @@ public class Hero1 : MonoBehaviour
     public string animator_state = "AnimationState";
     //string isAttack = "isAttack";
     
-    
-
     void Awake()
     {
         Instance = this;
@@ -62,7 +59,9 @@ public class Hero1 : MonoBehaviour
     {
         hitPoint -= Damage;
         if (hitPoint < 1)
+        {
             hitPoint = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -78,9 +77,10 @@ public class Hero1 : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (HealthySystem.Instance.hitPoint == 0)
+        if (HealthySystem.Instance.hitPoint <= 0)
         {
-            Destroy(hero);
+            //Destroy(hero);
+            gameObject.SetActive(false);
         }
     }
 
@@ -109,7 +109,7 @@ public class Hero1 : MonoBehaviour
     }
 
 // Update is called once per frame
-void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.L)) //공격키를 눌렀다
         {
@@ -120,7 +120,6 @@ void Update()
         {
             ani_move();
         }
-
     }
 
     private void FixedUpdate()
