@@ -39,7 +39,6 @@ public class Hero_Attack : MonoBehaviour
         for (int i = 0; i < Range.Length; i++)
         {
             position[i] = Range[i].transform.localPosition;
-            Debug.Log(position[i]);
         }
         range = init_range;
     }
