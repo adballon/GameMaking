@@ -21,18 +21,12 @@ public class MonsterAI : MonoBehaviour
     public float delay = 3.0f;
     bool waiting_exe = false;
     public int dire = 0;
+    float meet_range = 0.5f;
 
-    //public Animator animator;
-    //public String WalkingState = "WalkState";
-    //public String isMove = "isMove";
+    public Animator animator;
+    public String WalkingState = "WalkState";
+    public String isMove = "isMove";
 
-    //enum State
-    //{
-    //    front = 0,
-    //    back = 1,
-    //    left = 2,
-    //    right = 3
-    //}
 
     public int random()
     {
@@ -64,7 +58,28 @@ public class MonsterAI : MonoBehaviour
         if (meet == false)
         {
             dir = getVec_dir(); //백터형태로 가져오고
+            Debug.Log(dir.x );
             transform.Translate(dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
+
+            if(dir.x > -meet_range && dir.x < meet_range) 
+            {
+                if (dir.y > 0)
+                {
+                    animator.SetInteger(WalkingState, 1);
+                }
+                else
+                {
+                    animator.SetInteger(WalkingState, 0);
+                }
+            }
+            if(dir.x < -meet_range)
+            {
+                animator.SetInteger(WalkingState, 2);
+            }
+            if (dir.x > meet_range)
+            {
+                animator.SetInteger(WalkingState, 3);
+            }
         }
     }
     void waiting(int j)
@@ -72,44 +87,28 @@ public class MonsterAI : MonoBehaviour
         switch (j)
         {
             case 0:
-                rb.MovePosition(rb.position + Vector2.up * Monster.Instance.speed * 3 * Time.deltaTime);
-                //animator.SetInteger(WalkingState, (int)State.back);
+                rb.MovePosition(rb.position + Vector2.down * Monster.Instance.speed * 3 * Time.deltaTime);
                 break;
             case 1:
-                rb.MovePosition(rb.position + Vector2.down * Monster.Instance.speed * 3 * Time.deltaTime);
-                //animator.SetInteger(WalkingState, (int)State.front);
+                rb.MovePosition(rb.position + Vector2.up * Monster.Instance.speed * 3 * Time.deltaTime);
                 break;
             case 2:
                 rb.MovePosition(rb.position + Vector2.left * Monster.Instance.speed * 3 * Time.deltaTime);
-                //animator.SetInteger(WalkingState, (int)State.left);
                 break;
             case 3:
                 rb.MovePosition(rb.position + Vector2.right * Monster.Instance.speed * 3 * Time.deltaTime);
-                //animator.SetInteger(WalkingState, (int)State.right);
                 break;
-
         }
+        animator.SetInteger(WalkingState, j);
     } //순간이동 안한다 XD
 
 
     private IEnumerator ExecuteWithDelay(float delayTime)
     {
         dire = random();
-        yield return new WaitForSeconds(delayTime);
-        waiting_exe = false;
-        //animator.SetBool(isMove, false);
+        yield return new WaitForSeconds(delayTime); //3초 기다려 주고
+        waiting_exe = false; //그만 움직여라
         StopCoroutine(ExecuteWithDelay(delayTime));
-    }
-    void FaceTarget()
-    {
-        if (target.transform.position.x - transform.position.x < 0) // 타겟이 왼쪽에 있을 때
-        {
-            transform.localScale = new Vector3(-5, 5, 5);
-        }
-        else // 타겟이 오른쪽에 있을 때
-        {
-            transform.localScale = new Vector3(5, 5, 5);
-        }
     }
     void knockback()
     {
@@ -148,9 +147,10 @@ public class MonsterAI : MonoBehaviour
     }
     void Start()
     {
-        //animator.SetBool(isMove, false);
-        //animator.SetInteger(WalkingState, 0);
+        animator = GetComponent<Animator>();
         target = GameObject.FindWithTag("Player");
+        animator.SetBool(isMove, false);
+        animator.SetInteger(WalkingState, 0);
     }
     private void Awake()
     {
@@ -160,9 +160,9 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-        FaceTarget();
         if (!meet) //안 만났다
         {
+            animator.SetBool(isMove, true);
             if (in_sight() == true) //시야 안에 있다?
             {
                 MoveToTarget(); //그럼 글로 가
@@ -172,8 +172,7 @@ public class MonsterAI : MonoBehaviour
                 if (waiting_exe == false) //지금 움직이고 있는 상태가 아니다?
                 {
                     waiting_exe = true; //움직일 수 있는 상태를 만들어 주고
-                    //animator.SetBool(isMove, true);
-                    StartCoroutine(ExecuteWithDelay(delay)); //3초 세
+                    StartCoroutine(ExecuteWithDelay(delay)); //3초 동안 움직여
                 }
                 else //움직일 수 있는 상태다
                 {
@@ -187,6 +186,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (meet)
         {
+            animator.SetBool (isMove, false);
             knockback();
         }
     }
