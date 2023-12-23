@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4238636053173269950}
   - component: {fileID: 4536757799501194781}
   - component: {fileID: 6309264941647325235}
+  - component: {fileID: 1932736184799743624}
   m_Layer: 0
   m_Name: monster
   m_TagString: Monster
@@ -187,7 +188,10 @@ MonoBehaviour:
   knockbackspeed: 0
   knockbackpower: 0
   delay: 2
-  movement: 2
+  dire: 0
+  animator: {fileID: 0}
+  WalkingState: WalkState
+  isMove: isMove
 --- !u!114 &6309264941647325235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,3 +209,24 @@ MonoBehaviour:
   atk_dmg: 5
   vision: 30
   speed: 2
+--- !u!95 &1932736184799743624
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752496556949506917}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1df3d69f26a69a240bbc44cead75c250, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

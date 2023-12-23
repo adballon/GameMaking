@@ -28,27 +28,28 @@ public class item : MonoBehaviour
             Hero1.Instance.defend += defense_up;
             Hero1.Instance.speed += speed_up;
             
-            if(Hero1.Instance.hitPoint < 100)
+            if(Hero1.Instance.hitPoint < Hero1.Instance.maxhitPoint)
             {
                 Hero1.Instance.hitPoint += hit_up;
 
-                if (Hero1.Instance.hitPoint >= 100)
+                if (Hero1.Instance.hitPoint >= Hero1.Instance.maxhitPoint)
                 {
                     Hero1.Instance.hitPoint = Hero1.Instance.maxhitPoint;
                 }
             }
 
-            if(Hero1.Instance.manaPoint < 100)
+            if(Hero1.Instance.manaPoint < Hero1.Instance.maxManaPoint)
             {
-
                 Hero1.Instance.manaPoint += mana_up;
 
-                if (Hero1.Instance.manaPoint >= 100)
+                if (Hero1.Instance.manaPoint >= Hero1.Instance.maxManaPoint)
                 {
                     Hero1.Instance.manaPoint = Hero1.Instance.maxManaPoint;
                 }
             }
         }
+
+
     }
 
     // Start is called before the first frame update
