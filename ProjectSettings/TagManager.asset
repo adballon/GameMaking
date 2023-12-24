@@ -11,6 +11,7 @@ TagManager:
   - Item
   - Portal
   - Weapon
+  - Boss
   layers:
   - Default
   - TransparentFX
