@@ -19,7 +19,7 @@ public class MonsterMaking : MonoBehaviour
 
             //원본, 위치, 회전값을 매개변수로 받아 오브젝트 복제
             GameObject instance = Instantiate(Monster, spawnPos, Quaternion.identity);
-            bookList.Add(instance); //오브젝트 관리를 위해 리스트에 add
+            //bookList.Add(instance); //오브젝트 관리를 위해 리스트에 add
         }
         area.enabled = false;
     }

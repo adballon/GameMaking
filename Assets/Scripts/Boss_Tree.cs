@@ -13,7 +13,8 @@ public class Boss_Tree : MonoBehaviour
     Rigidbody2D rb;
     bool player_in_boss_room; //플레이어가 보스룸에 들어오는지 확인
     float timer; //시간 지연
-    int waitingTime;
+    float waitingTime;
+
     void Start()
     {
         hp = 5000f; //일반 몹의 50배
@@ -26,7 +27,7 @@ public class Boss_Tree : MonoBehaviour
         //정문이가 스테이지와 현재 방에 대한 정보를 얻을 수 있는 무언가를 만들어줘야지 구현가능
         player_in_boss_room = false;
         timer = 0f;
-        waitingTime = 3;
+        waitingTime = 2.0f;
     }
     void boss_move() //보스 움직임 구현
     {
@@ -41,15 +42,17 @@ public class Boss_Tree : MonoBehaviour
             transform.localScale = new Vector3(-25, 25, 25); //바라보기
         }
     }
-    void boss_attack() //보스 공격 구현
+
+    void boss_attack()
     {
         timer += Time.deltaTime;
-        if(timer > waitingTime)
+        if (timer > waitingTime)
         {
-            GameObject bullet = Instantiate(bullet_prefab, rb.position, Quaternion.identity);
+            GameObject bullets = Instantiate(bullet_prefab, rb.position, Quaternion.identity);
             timer = 0;
         }
     }
+    
     void boss_active() //boss의 활성화 비활성화 및 플레이어가 보스룸에 들어왔는지 안왔는지 확인
     {
         //if(스테이지 == 1)
@@ -76,15 +79,18 @@ public class Boss_Tree : MonoBehaviour
     void Update()
     {
         boss_active(); //보스의 활동 제어
+        boss_move(); //보스가 움직임
+        boss_attack();
+
+
         //if(player_in_boss_room) //플레이어가 보스룸에 들어가면
         //{
-            boss_move(); //보스가 움직임
-            boss_attack(); //보스가 때림
+
         //}
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 }
