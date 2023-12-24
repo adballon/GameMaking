@@ -14,6 +14,8 @@ public class RandomMapManager : MonoBehaviour
 
     public Roomcode NextRoom; //이동 할 방
 
+    public Roomcode CurrRoom; //현재 방
+
     public Doorcode Hitdoor;
 
     int ran()
@@ -87,10 +89,12 @@ public class RandomMapManager : MonoBehaviour
                     visited.Add(NextRoom);
                     Hitdoor.connected = NextRoom.roomdoors[(Hitdoor.direction + 2) % 4]; //다음 방 연결
                     NextRoom.roomdoors[(Hitdoor.direction + 2) % 4].connected = Hitdoor; //이전 방 연결
+                    CurrRoom = Hitdoor.connected.inroom;
                     break; //탈출
                 }
             }
         }
+        CurrRoom = Hitdoor.connected.inroom;
     }
     void Awake()
     {

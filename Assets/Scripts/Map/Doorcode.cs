@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Doorcode : MonoBehaviour
@@ -27,9 +28,12 @@ public class Doorcode : MonoBehaviour
             RandomMapManager.Instance.randomRoom();
             collision.transform.position = connected.transform.position + (dir[direction] * 2f); //다음 방으로 이동
 
-            if(connected.inroom == RandomMapManager.Instance.roomsamples[0])
+            if (connected.inroom == RandomMapManager.Instance.roomsamples[0])
             {
-                RandomMapManager.Instance.init();
+                if (RandomMapManager.Instance.visited.Count == 12)
+                {
+                    RandomMapManager.Instance.init();
+                }
             }
         }
     }
