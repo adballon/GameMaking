@@ -6,10 +6,9 @@ public class Bullet : MonoBehaviour
 {
     float speed;
     public GameObject target;
-
     private void OnCollisionEnter2D(Collision2D other_obj)
     {
-        if (other_obj.gameObject.CompareTag("Player"))
+        if (other_obj.gameObject.tag == "Player")
         {
             Debug.Log("ÃÑ¾Ë»èÁ¦");
             Destroy(gameObject);
