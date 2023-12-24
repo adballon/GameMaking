@@ -48,7 +48,8 @@ public class Boss_Tree : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > waitingTime)
         {
-            GameObject bullets = Instantiate(bullet_prefab, rb.position, Quaternion.identity);
+            Instantiate(bullet_prefab, rb.position, Quaternion.identity);
+            //Debug.Log("총알 생성");
             timer = 0;
         }
     }
@@ -78,19 +79,17 @@ public class Boss_Tree : MonoBehaviour
     }
     void Update()
     {
-        boss_active(); //보스의 활동 제어
-        boss_move(); //보스가 움직임
-        boss_attack();
-
-
-        //if(player_in_boss_room) //플레이어가 보스룸에 들어가면
-        //{
-
-        //}
+        
     }
 
     private void FixedUpdate()
     {
+        boss_active(); //보스의 활동 제어
 
+        //if(player_in_boss_room) //플레이어가 보스룸에 들어가면
+        //{
+        boss_move(); //보스가 움직임
+        boss_attack();
+        //}
     }
 }

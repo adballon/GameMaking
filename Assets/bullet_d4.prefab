@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7834509244508698898}
   - component: {fileID: 6543257625156873693}
-  - component: {fileID: 4524876871424068914}
   - component: {fileID: 7992343125623569854}
+  - component: {fileID: 118288913078230168}
+  - component: {fileID: 9070326958775304907}
   m_Layer: 0
   m_Name: bullet_d4
   m_TagString: Untagged
@@ -86,7 +87,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4524876871424068914
+--- !u!114 &7992343125623569854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498296348195504012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68acbf3f9ea9bf94a8b17df09892d66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7194534525582538006, guid: bb91899f53e3ce740b3916461000d1f3, type: 3}
+--- !u!60 &118288913078230168
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +129,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -136,16 +150,30 @@ PolygonCollider2D:
       - {x: 0.099999994, y: -0.16}
       - {x: 0.099999994, y: 0.14999999}
   m_UseDelaunayMesh: 0
---- !u!114 &7992343125623569854
-MonoBehaviour:
+--- !u!50 &9070326958775304907
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7498296348195504012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68acbf3f9ea9bf94a8b17df09892d66b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 7194534525582538006, guid: bb91899f53e3ce740b3916461000d1f3, type: 3}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
