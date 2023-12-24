@@ -58,7 +58,6 @@ public class MonsterAI : MonoBehaviour
         if (meet == false)
         {
             dir = getVec_dir(); //백터형태로 가져오고
-            Debug.Log(dir.x );
             transform.Translate(dir.normalized * Monster.Instance.speed * Time.deltaTime); //좌표이동
 
             if(dir.x > -meet_range && dir.x < meet_range) 
