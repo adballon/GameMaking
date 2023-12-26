@@ -88,7 +88,6 @@ public class Hero_Attack : MonoBehaviour
     {
         if (checkRange() == true)
         {
-            Debug.Log(true);
             changeRange();
         }
         arrow = Hero1.Instance.lastinput;
