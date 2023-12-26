@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - Weapon
   - Boss
+  - Coin
   layers:
   - Default
   - TransparentFX
