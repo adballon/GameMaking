@@ -9,10 +9,10 @@ TagManager:
   - HealthSprite
   - Monster
   - Item
-  - Portal
   - Weapon
   - Boss
   - Coin
+  - Tree_bullet
   layers:
   - Default
   - TransparentFX

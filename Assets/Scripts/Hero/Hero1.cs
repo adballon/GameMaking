@@ -39,6 +39,8 @@ public class Hero1 : MonoBehaviour
 
     public string animator_state = "AnimationState";
     //string isAttack = "isAttack";
+    bool KB_tri; //knock_back trigger
+    float timer, waitingTime; //시간 지연
 
     void Awake()
     {
@@ -77,10 +79,10 @@ public class Hero1 : MonoBehaviour
             TakeDamage(Monster.Instance.atk_dmg);
         }
 
-        if (collision.gameObject.tag == "Portal")
+        if (collision.gameObject.tag == "Boss")
         {
-            transform.position = new Vector3(0, 100, 0);
-            Destroy(collision.gameObject);
+            KB_tri = true;
+            TakeDamage(Boss_Tree.Instance.atk);
         }
 
         if (HealthySystem.Instance.hitPoint <= 0)
@@ -98,6 +100,10 @@ public class Hero1 : MonoBehaviour
 
         animator.SetInteger(animator_state, (int)States.front);
         animator.SetBool("isMove", false);
+
+        KB_tri = false;
+        timer = 0;
+        waitingTime = 0.5f;
     }
 
     private IEnumerator ExecuteWithDelay(float delayTime)
@@ -111,6 +117,11 @@ public class Hero1 : MonoBehaviour
         Hero_Attack.Instance.setActiveRange();
         //코루틴 종료
         StopCoroutine(ExecuteWithDelay(delayTime));
+    }
+    void knock_back()
+    {
+        Vector2 v = transform.position - Boss_Tree.Instance.transform.position;
+        rigid.MovePosition(rigid.position + v.normalized * speed * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -130,6 +141,18 @@ public class Hero1 : MonoBehaviour
     private void FixedUpdate()
     {
         MoveCharacter();
+        if (KB_tri)
+        {
+            animator.SetBool("isMove", false);
+            knock_back();
+            timer += Time.deltaTime;
+            if (timer > waitingTime)
+            {
+                KB_tri = false;
+                animator.SetBool("isMove", true);
+                timer = 0;
+            }
+        }
     }
 
     private void MoveCharacter()

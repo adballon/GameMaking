@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float speed;
+    public float speed, atk;
     public GameObject target;
 
     private void OnTriggerEnter2D(Collider2D other_obj)
     {
         if (other_obj.gameObject.tag == "Player")
         {
-            //Debug.Log("ÃÑ¾Ë»èÁ¦");
+            Hero1.Instance.TakeDamage(atk);
             Destroy(gameObject);
         }
     }
-
     void Start()
     {
         speed = 10f;
+        atk = 5f;
         target = GameObject.FindWithTag("Player");
     }
 
