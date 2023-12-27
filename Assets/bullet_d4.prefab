@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9070326958775304907}
   m_Layer: 0
   m_Name: bullet_d4
-  m_TagString: Untagged
+  m_TagString: Tree_bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 700
   m_Sprite: {fileID: 21300000, guid: 37a2d4b7807fb4089a452e9a68acc935, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68acbf3f9ea9bf94a8b17df09892d66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  atk: 5
   target: {fileID: 7194534525582538006, guid: bb91899f53e3ce740b3916461000d1f3, type: 3}
 --- !u!60 &118288913078230168
 PolygonCollider2D:

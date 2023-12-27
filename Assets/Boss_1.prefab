@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3864511888629466816}
   m_Layer: 0
   m_Name: Boss_1
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +136,11 @@ MonoBehaviour:
   meet: 0
   knockbackspeed: 0
   knockbackpower: 0
+  delay: 3
+  dire: 0
+  animator: {fileID: 0}
+  WalkingState: WalkState
+  isMove: isMove
 --- !u!114 &757563275448682977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,9 +153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2cc23aa429c2804db39daabc4465856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nowhp: 0
+  monster: {fileID: 0}
+  max_hp: 100
+  now_hp: 0
+  atk_dmg: 5
+  vision: 30
   speed: 1
-  fieldOfVision: 0
 --- !u!60 &8403266955512190261
 PolygonCollider2D:
   m_ObjectHideFlags: 0

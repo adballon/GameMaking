@@ -14,6 +14,10 @@ public class Attack : MonoBehaviour
             collision.gameObject.GetComponent<MonsterAI>().meet = true;
             collision.gameObject.GetComponent<Monster>().now_hp -= Hero1.Instance.attack;
         }
+        if (collision.gameObject.tag == "Boss")
+        {
+            Boss_Tree.Instance.hp -= Hero1.Instance.attack * (1f - Boss_Tree.Instance.defend*0.01f);
+        }
     }
     // Start is called before the first frame update
     void Start()
