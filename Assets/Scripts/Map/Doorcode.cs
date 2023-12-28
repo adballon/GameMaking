@@ -8,9 +8,6 @@ public class Doorcode : MonoBehaviour
 {
     public static Doorcode Instance;
 
-
-    GameObject sp;
-
     public int direction; // 문이 어디에 붙어있는가(0:위쪽, 1:왼쪽, 2:아래쪽, 3:오른쪽)
     public Doorcode connected;  // 이 문을 통과하면 어느 문으로 가는가 (연결된 문)
     public Roomcode inroom; //이 문이 달려있는 방
@@ -33,7 +30,11 @@ public class Doorcode : MonoBehaviour
                 {
                     RandomMapManager.Instance.init();
                     Hero1.Instance.stage++;
-                    sp.GetComponent<MonsterMaking>().makeMonster();
+                    
+                    for(int i=0;i<Component_management.Instance.spawnpoint.Length;i++)
+                    {
+                        Component_management.Instance.spawnpoint[i].GetComponent<MonsterMaking>().makeMonster();
+                    }
                 }
             }
         }
@@ -46,7 +47,6 @@ public class Doorcode : MonoBehaviour
 
     void Start()
     {
-        sp = GameObject.Find("SpawnPoint");
     }
     void Awake()
     {

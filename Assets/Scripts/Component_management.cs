@@ -15,6 +15,10 @@ public class Component_management : MonoBehaviour
 
     public GameObject[] monster;
 
+    public GameObject[] boss;
+
+    public GameObject[] spawnpoint;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -7,7 +7,6 @@ public class Monster : MonoBehaviour
 {
     public static Monster Instance;
     public GameObject monster;
-    GameObject oj;
     public float max_hp = 100;
     public float now_hp;
     public float atk_dmg = 5;
@@ -24,8 +23,6 @@ public class Monster : MonoBehaviour
     void Start()
     {
         now_hp = max_hp;
-
-        oj = GameObject.Find("Coin");
 
         pos[0] = Vector3.up;
         pos[1] = Vector3.down;
