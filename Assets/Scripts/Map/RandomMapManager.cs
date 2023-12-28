@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -74,6 +75,7 @@ public class RandomMapManager : MonoBehaviour
                 if (visited.Count == 11) //모든 방에 다 방문했다
                 {
                     NextRoom = roomsamples[11]; //마지막 방 지정
+                    Instantiate(Component_management.Instance.boss[Hero1.Instance.stage -1], roomsamples[11].RoomCenter, Quaternion.identity);
                     for (int i = 1; i < 4; i++)
                     {
                         NextRoom.roomdoors[i].SetActive(false);

@@ -29,7 +29,7 @@ public class Hero1 : MonoBehaviour
     public int lastinput = 1;
     public float delayTime = 0.5f;
 
-    public int stage = 1; //현재 스테이지
+    public int stage; //현재 스테이지
 
     Vector2 movement = new Vector2();
 
@@ -101,6 +101,8 @@ public class Hero1 : MonoBehaviour
         animator.SetInteger(animator_state, (int)States.front);
         animator.SetBool("isMove", false);
 
+        stage = 1;
+
         KB_tri = false;
         timer = 0;
         waitingTime = 0.5f;
@@ -143,13 +145,11 @@ public class Hero1 : MonoBehaviour
         MoveCharacter();
         if (KB_tri)
         {
-            animator.SetBool("isMove", false);
             knock_back();
             timer += Time.deltaTime;
             if (timer > waitingTime)
             {
                 KB_tri = false;
-                animator.SetBool("isMove", true);
                 timer = 0;
             }
         }
@@ -167,30 +167,37 @@ public class Hero1 : MonoBehaviour
 
     private void ani_move()
     {
-        if (movement.x < 0)
+       if(!KB_tri)
         {
-            animator.SetInteger(animator_state, (int)States.left);
-            animator.SetBool("isMove", true);
-            lastinput = (int)States.left;
-        }
-        else if (movement.x > 0)
-        {
-            animator.SetInteger(animator_state, (int)States.right);
-            animator.SetBool("isMove", true);
-            lastinput = (int)States.right;
-        }
-        else if (movement.y < 0)
-        {
-            animator.SetInteger(animator_state, (int)States.front);
-            animator.SetBool("isMove", true);
-            lastinput = (int)States.front;
+            if (movement.x < 0)
+            {
+                animator.SetInteger(animator_state, (int)States.left);
+                animator.SetBool("isMove", true);
+                lastinput = (int)States.left;
+            }
+            else if (movement.x > 0)
+            {
+                animator.SetInteger(animator_state, (int)States.right);
+                animator.SetBool("isMove", true);
+                lastinput = (int)States.right;
+            }
+            else if (movement.y < 0)
+            {
+                animator.SetInteger(animator_state, (int)States.front);
+                animator.SetBool("isMove", true);
+                lastinput = (int)States.front;
 
-        }
-        else if (movement.y > 0)
-        {
-            animator.SetInteger(animator_state, (int)States.back);
-            animator.SetBool("isMove", true);
-            lastinput = (int)States.back;
+            }
+            else if (movement.y > 0)
+            {
+                animator.SetInteger(animator_state, (int)States.back);
+                animator.SetBool("isMove", true);
+                lastinput = (int)States.back;
+            }
+            else
+            {
+                animator.SetBool("isMove", false);
+            }
         }
         else
         {
