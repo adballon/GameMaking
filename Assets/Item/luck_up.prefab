@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack_up: 0
+  mana_up: 0
+  hit_up: 0
   defense_up: 0
   speed_up: 0
-  luck_up: 5
-  hit_up: 0
-  mana_up: 0
+  luck_up: 0.01
+  item_cnt: 000000000000000000000000000000000000000000000000
 --- !u!60 &8316297754434241940
 PolygonCollider2D:
   m_ObjectHideFlags: 0

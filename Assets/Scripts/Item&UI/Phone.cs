@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class Phone : MonoBehaviour
 {
 
-    public RectTransform rt;
+    RectTransform rt;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +28,7 @@ public class Phone : MonoBehaviour
             {
                 rt.anchoredPosition = new Vector2(140, -300);
             }
+
         }
     }
 
