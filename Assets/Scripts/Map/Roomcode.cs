@@ -22,14 +22,24 @@ public class Roomcode : MonoBehaviour
     // 스폰시킬 몬스터들
     // 카메라 고정 위치, 카메라 크기? 등
 
+    public void open()
+    {
+        for(int i = 0; i < roomdoors.Length; i++)
+        {
+            roomdoors[i].SetActive(true);
+        }
+    }
+
+    public void close()
+    {
+        for (int i = 0; i < roomdoors.Length; i++)
+        {
+            roomdoors[i].SetActive(false);
+        }
+    }
+
     void Start()
     {
-        /*for(int i=0;i<4;i++)
-        {
-            roomdoors[i].Setactive(false);
-        }*/
-
-        //Debug.Log(gameObject.name + " " + roomdoors.Length);
         RoomCenter = transform.position;
         RoomWidth = roomdoors[3].transform.position.x;
         RoomHeigth = roomdoors[0].transform.position.y;

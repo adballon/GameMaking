@@ -5,10 +5,12 @@ using UnityEngine;
 public class MonsterMaking : MonoBehaviour
 {
     public GameObject Monster;
+    public Roomcode room;
 
+    public int mon_cnt = 0;
     public int count = 10;                 //생성할 책(게임 오브젝트)의 개수
     private BoxCollider2D area;     //BoxCollider2D의 사이즈를 가져오기 위한 변수
-    private List<GameObject> bookList = new List<GameObject>();		//생성한 책 오브젝트 리스트
+    public List<GameObject> monList = new List<GameObject>();		//생성한 책 오브젝트 리스트
 
     void Start()
     {
@@ -17,7 +19,16 @@ public class MonsterMaking : MonoBehaviour
         area.enabled = false;
     }
 
-   public  void makeMonster()
+
+    public void init()
+    {
+        for(int i = 0; i < monList.Count; i++)
+        {
+            Destroy(monList[i]);
+        }
+        monList.Clear();
+    }
+    public  void makeMonster()
     {
         for (int i = 0; i < count; i++) //count만큼 책 생성
         {
@@ -25,7 +36,7 @@ public class MonsterMaking : MonoBehaviour
 
             //원본, 위치, 회전값을 매개변수로 받아 오브젝트 복제
             GameObject instance = Instantiate(Component_management.Instance.monster[0], spawnPos, Quaternion.identity);
-            //bookList.Add(instance); //오브젝트 관리를 위해 리스트에 add
+            monList.Add(instance); //오브젝트 관리를 위해 리스트에 add
         }
     }
     
@@ -43,4 +54,42 @@ public class MonsterMaking : MonoBehaviour
         return spawnPos;
     }
 
+    bool check_monster()
+    {
+        if(monList.Count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void clear_list()
+    {
+        for(int i = 0;i < monList.Count;i++)
+        {
+            if (monList[i] == null)
+            {
+                monList.RemoveAt(i);
+            }
+        }
+    }
+
+    void Update()
+    {
+        clear_list();
+        mon_cnt = monList.Count;
+        if(check_monster())
+        {
+            room.open();
+        }
+        else
+        {
+            room.close();
+        }
+    }
 }
+
+

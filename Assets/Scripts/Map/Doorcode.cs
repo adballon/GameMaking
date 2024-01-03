@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Doorcode : MonoBehaviour
@@ -28,13 +27,8 @@ public class Doorcode : MonoBehaviour
             {
                 if (RandomMapManager.Instance.visited.Count == 12)
                 {
-                    RandomMapManager.Instance.init();
+                    RandomMapManager.Instance.clear_map();
                     Hero1.Instance.stage++;
-                    
-                    for(int i=0;i<Component_management.Instance.spawnpoint.Length;i++)
-                    {
-                        Component_management.Instance.spawnpoint[i].GetComponent<MonsterMaking>().makeMonster();
-                    }
                 }
             }
         }

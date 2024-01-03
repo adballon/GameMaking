@@ -98,12 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b3e89a02db185489187c03bdc57735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  it: {fileID: 7951008047175468147}
   attack_up: 10
+  mana_up: 0
+  health_up: 0
   defense_up: 0
   speed_up: 0
   luck_up: 0
-  hit_up: 0
-  mana_up: 0
 --- !u!60 &1849717871322985805
 PolygonCollider2D:
   m_ObjectHideFlags: 0

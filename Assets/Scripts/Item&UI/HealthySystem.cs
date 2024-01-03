@@ -53,10 +53,10 @@ public class HealthySystem : MonoBehaviour
 	//==============================================================
 	void Update ()
 	{
-		hitPoint = Hero1.Instance.hitPoint;
+		hitPoint = Hero1.Instance.healthpoint;
 		manaPoint = Hero1.Instance.manaPoint;
 		maxManaPoint = Hero1.Instance.maxManaPoint;
-		maxHitPoint = Hero1.Instance.maxhitPoint;
+		maxHitPoint = Hero1.Instance.maxhealthPoint;
 
 		heal_regen = Hero1.Instance.regenhit;
 		mana_regen = Hero1.Instance.regemana;

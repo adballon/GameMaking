@@ -632,22 +632,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hero: {fileID: 7194534525582538006}
   coin: 0
-  attack: 5
+  attack: 50
   attack_range: 0
   speed: 5
   defend: 5
-  luck: 5
+  luck: 0.1
   maxManaPoint: 100
-  maxhitPoint: 100
-  hitPoint: 80
-  manaPoint: 60
+  maxhealthPoint: 100
+  healthpoint: 100
+  manaPoint: 100
   regenhit: 0.1
   regemana: 0.1
   lastinput: 0
   delayTime: 10
   stage: 0
+  item_cnt: 000000000000000000000000000000000000000000000000
   animator: {fileID: 0}
   animator_state: AnimationState
+  dead: Respawn
 --- !u!60 &4028721325461350751
 PolygonCollider2D:
   m_ObjectHideFlags: 0

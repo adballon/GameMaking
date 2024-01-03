@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -64,6 +63,17 @@ public class RandomMapManager : MonoBehaviour
 
         visited.Clear();
         visited.Add(roomsamples[0]);
+    }
+
+
+    public void clear_map()
+    {
+        init();
+        for (int i = 0; i < Component_management.Instance.spawnpoint.Length; i++)
+        {
+            Component_management.Instance.spawnpoint[i].GetComponent<MonsterMaking>().init();
+            Component_management.Instance.spawnpoint[i].GetComponent<MonsterMaking>().makeMonster();
+        }
     }
 
     public void randomRoom() //방 이동 함수

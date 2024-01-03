@@ -30,9 +30,9 @@ public class Bank : MonoBehaviour
             account += amount; //저장 한 값 기존 저장한 값과 합쳐주고
             Hero1.Instance.coin -= amount; //현재 가지고 있는 코인에서 저장 할 양 제거
             volume.text = Hero1.Instance.coin.ToString(); //현재 가지고 있는 양 반영
-            deposit.text = "0"; //인풋필드 초기화
             total.text = account.ToString(); //저징한 값 반영
         }
+        deposit.text = "0"; //인풋필드 초기화
     }
 
     // Update is called once per frame

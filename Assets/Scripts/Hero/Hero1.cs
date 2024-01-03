@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
 
 public class Hero1 : MonoBehaviour
@@ -19,9 +20,9 @@ public class Hero1 : MonoBehaviour
     public float defend = 5f;  //방어력
     public float luck = 5f;  //운
     public float maxManaPoint = 100f;  //최대 마나
-    public float maxhitPoint = 100f;  //최대 체력
+    public float maxhealthPoint = 100f;  //최대 체력
 
-    public float hitPoint = 50f;  //현재 체력   
+    public float healthpoint = 50f;  //현재 체력   
     public float manaPoint = 50f; //현재 마나
     public float regenhit = 0.1f;  //체력 리젠
     public float regemana = 0.1f;  //마나 리젠
@@ -30,6 +31,8 @@ public class Hero1 : MonoBehaviour
     public float delayTime = 0.5f;
 
     public int stage; //현재 스테이지
+
+    public int[] item_cnt; //먹은 아이템 카운트
 
     Vector2 movement = new Vector2();
 
@@ -41,6 +44,8 @@ public class Hero1 : MonoBehaviour
     //string isAttack = "isAttack";
     bool KB_tri; //knock_back trigger
     float timer, waitingTime; //시간 지연
+
+    public String dead;
 
     void Awake()
     {
@@ -65,10 +70,10 @@ public class Hero1 : MonoBehaviour
 
     public void TakeDamage(float Damage) //데미지 입는 함수
     {
-        hitPoint -= Damage;
-        if (hitPoint < 1)
+        healthpoint -= Damage;
+        if (healthpoint < 1)
         {
-            hitPoint = 0;
+            healthpoint = 0;
         }
     }
 
@@ -84,17 +89,11 @@ public class Hero1 : MonoBehaviour
             KB_tri = true;
             TakeDamage(Boss_Tree.Instance.atk);
         }
-
-        if (HealthySystem.Instance.hitPoint <= 0)
-        {
-            //Destroy(hero);
-            gameObject.SetActive(false);
-        }
     }
     // Start is called before the first frame update
     void Start()
     {
-        //transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, 0, 0);
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -137,6 +136,14 @@ public class Hero1 : MonoBehaviour
         else
         {
             ani_move();
+        }
+
+        if(healthpoint == 0)
+        {
+            transform.position = new Vector3(0, 0, 0);
+            healthpoint = maxhealthPoint;
+            RandomMapManager.Instance.clear_map();
+            SceneManager.LoadScene(dead);
         }
     }
 

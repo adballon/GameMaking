@@ -42,10 +42,7 @@ public class Monster : MonoBehaviour
             }
             
             GameObject a = Instantiate(Component_management.Instance.item[0], transform.position, Quaternion.identity);
-            a.GetComponent<Coin>().setValue((int)max_hp / 10);
-            Debug.Log(max_hp);
-            Debug.Log(a.GetComponent<Coin>().value);
-            
+            a.GetComponent<Coin>().setValue((int)max_hp / 10);            
             Destroy(gameObject);
         }
     }

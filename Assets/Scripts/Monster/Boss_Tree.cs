@@ -17,6 +17,7 @@ public class Boss_Tree : MonoBehaviour
     public static Boss_Tree Instance;
     float delay_time;
     public Animator ani; //animation
+    public Roomcode room;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class Boss_Tree : MonoBehaviour
         ani = GetComponent<Animator>();
         ani.SetBool("moving", false);
         ani.SetInteger("dir", 0);
+        room.close();
     }
     void boss_move() //보스 움직임 구현
     {
@@ -116,30 +118,28 @@ public class Boss_Tree : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (boss_active()) //보스의 활동 제어
-        //{
-            timer += Time.deltaTime;
-            if (timer > waitingTime)
+        timer += Time.deltaTime;
+        if (timer > waitingTime)
+        {
+            ani.SetBool("moving", false);
+            delay_time += Time.deltaTime;
+            if (delay_time > waitingTime - 1.5f)
             {
-                ani.SetBool("moving", false);
-                delay_time += Time.deltaTime;
-                if (delay_time > waitingTime - 1.5f)
-                {
-                    boss_attack(); //총알생성
-                    timer = 0;
-                    delay_time = 0f;
-                }
+                boss_attack(); //총알생성
+                timer = 0;
+                delay_time = 0f;
             }
-            else
-            {
-                ani.SetBool("moving", true);
-                boss_move(); //보스가 움직임
-            }
-        //} //실제 구현할때는 if문 주석 풀기
+        }
+        else
+        {
+            ani.SetBool("moving", true);
+            boss_move(); //보스가 움직임
+        }
         
         if (hp <= 0) //보스가 죽으면
         {
             Destroy(gameObject);
+            room.open();
         }
     }
 }
