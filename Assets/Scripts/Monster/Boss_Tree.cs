@@ -17,7 +17,6 @@ public class Boss_Tree : MonoBehaviour
     public static Boss_Tree Instance;
     float delay_time;
     public Animator ani; //animation
-    public Roomcode room;
 
     private void Awake()
     {
@@ -25,7 +24,7 @@ public class Boss_Tree : MonoBehaviour
     }
     void Start()
     {
-        hp = 5000f; //일반 몹의 50배
+        hp = 1000f; //일반 몹의 10배
         atk = 20f; //일반몹의 4배
         defend = 10f; //방어개념 추가
         speed = 0.4f; //나무보스답게 느림(일반몹의 10%)
@@ -37,7 +36,6 @@ public class Boss_Tree : MonoBehaviour
         ani = GetComponent<Animator>();
         ani.SetBool("moving", false);
         ani.SetInteger("dir", 0);
-        room.close();
     }
     void boss_move() //보스 움직임 구현
     {
@@ -139,7 +137,6 @@ public class Boss_Tree : MonoBehaviour
         if (hp <= 0) //보스가 죽으면
         {
             Destroy(gameObject);
-            room.open();
         }
     }
 }
