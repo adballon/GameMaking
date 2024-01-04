@@ -81,14 +81,14 @@ public class MonsterMaking : MonoBehaviour
     {
         clear_list();
         mon_cnt = monList.Count;
-        if(check_monster())
-        {
-            room.open();
-        }
-        else
-        {
-            room.close();
-        }
+        //if(check_monster())
+        //{
+        //    room.open();
+        //}
+        //else
+        //{
+        //    room.close();
+        //}
     }
 }
 
